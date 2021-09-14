@@ -137,15 +137,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#009387'
     },
     header: {
-        flex: 1,
+        flex:1,
         paddingHorizontal: 20,
         paddingBottom: 50
     },
     logo: {
-        flex: 1,
+        marginLeft:height_logo*1,
         width: height_logo,
         height: height_logo,
-        alignItems: 'center',
     },
     footer: {
         flex: 3,
@@ -156,6 +155,7 @@ const styles = StyleSheet.create({
         paddingVertical: 30
     },
     text_header: {
+        flex:1,
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 30
