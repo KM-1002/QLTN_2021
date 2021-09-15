@@ -10,6 +10,8 @@ import {
     Dimensions,
     SafeAreaView,
     Image,
+    TouchableWithoutFeedback,
+    Keyboard,
 
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
@@ -33,104 +35,108 @@ const SignIn = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' Style="light-content" />
-            <View style={styles.header}>
-                <Animatable.Image
-                    animation="fadeInDown"
-                    source={require('../Images/logo.png')}
-                    style={styles.logo}
-                    resizeMode="stretch"
-                />
-                <Text style={styles.text_header}>Đăng nhập ngay!</Text>
-            </View>
-            <Animatable.View
-                animation="fadeInUpBig"
-                style={styles.footer
-                }>
-                <KeyboardAwareScrollView
-                    extraHeight={210}
-                    enableOnAndroid
-                    showsVerticalScrollIndicator={false}
-                >
-                    <Text style={[styles.text_footer, {
-                    }]}>Email</Text>
-                    <View style={styles.action}>
-                        <FontAwesome
-                            name="user-o"
-                            color={'#fff'}
-                            size={20}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <Animatable.Image
+                            animation="fadeInDown"
+                            source={require('../Images/logo.png')}
+                            style={styles.logo}
+                            resizeMode="stretch"
                         />
-                        <TextInput
-                            placeholder="Nhập tài khoản email"
-                            placeholderTextColor="#666666"
-                            style={styles.textInput}
-                            autoCapitalize="none"
-                        />
+                        <Text style={styles.text_header}>Đăng nhập ngay!</Text>
                     </View>
-                    <Text style={styles.text_footer}>Mật khẩu</Text>
-                    <View style={styles.action}>
-                        <Feather
-                            name="lock"
-                            color={'#fff'}
-                            size={20}
-                        />
-                        <TextInput
-                            placeholder="Nhập mật khẩu"
-                            placeholderTextColor="#666666"
-                            secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
-                            style={styles.textInput}
-                            autoCapitalize="none"
-                        />
-                        <TouchableOpacity
-                            onPress={updateSecureTextEntry}
+                    <Animatable.View
+                        animation="fadeInUpBig"
+                        style={styles.footer
+                        }>
+                        <KeyboardAwareScrollView
+                            extraHeight={150}
+                            enableOnAndroid
+                            showsVerticalScrollIndicator={false}
                         >
-                            {check_textInputChange.secureTextEntry ?
-                                <Feather
-                                    name="eye-off"
-                                    color="grey"
+                            <Text style={[styles.text_footer, {
+                            }]}>Email</Text>
+                            <View style={styles.action}>
+                                <FontAwesome
+                                    name="user-o"
+                                    color={'#fff'}
                                     size={20}
                                 />
-                                :
+                                <TextInput
+                                    placeholder="Nhập tài khoản email"
+                                    placeholderTextColor="#666666"
+                                    style={styles.textInput}
+                                    autoCapitalize="none"
+                                />
+                            </View>
+                            <Text style={styles.text_footer}>Mật khẩu</Text>
+                            <View style={styles.action}>
                                 <Feather
-                                    name="eye"
-                                    color="green"
+                                    name="lock"
+                                    color={'#fff'}
                                     size={20}
                                 />
-                            }
-                        </TouchableOpacity>
-                    </View>
-                    <TouchableOpacity>
-                        <Text style={{ color: '#009387', marginTop: 15, paddingLeft: 20 }}>Quên mật khẩu?</Text>
-                    </TouchableOpacity>
-                    <View style={styles.button}>
-                        <TouchableOpacity
-                            style={styles.signIn}
-                            onPress={() => { }}
-                        >
-                            <LinearGradient
-                                colors={['#08d4c4', '#01ab9d']}
-                                style={styles.signIn}
-                            >
-                                <Text style={[styles.textSign, {
-                                    color: '#F5F5F5'
-                                }]}>Đăng nhập</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => navigation.navigate('signup')}
-                            style={[styles.signIn, {
-                                borderColor: '#00cfcb',
-                                fontWeight:'bold',
-                                marginTop: 15,
-                                borderWidth:1,
-                            }]}
-                        >
-                            <Text style={[styles.textSign, {
-                                color: '#01ab9d',
-                            }]}>Đăng ký</Text>
-                        </TouchableOpacity>
-                    </View>
-                </KeyboardAwareScrollView>
-            </Animatable.View>
+                                <TextInput
+                                    placeholder="Nhập mật khẩu"
+                                    placeholderTextColor="#666666"
+                                    secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
+                                    style={styles.textInput}
+                                    autoCapitalize="none"
+                                />
+                                <TouchableOpacity
+                                    onPress={updateSecureTextEntry}
+                                >
+                                    {check_textInputChange.secureTextEntry ?
+                                        <Feather
+                                            name="eye-off"
+                                            color="grey"
+                                            size={20}
+                                        />
+                                        :
+                                        <Feather
+                                            name="eye"
+                                            color="green"
+                                            size={20}
+                                        />
+                                    }
+                                </TouchableOpacity>
+                            </View>
+                            <TouchableOpacity>
+                                <Text style={{ color: '#009387', marginTop: 15, paddingLeft: 20 }}>Quên mật khẩu?</Text>
+                            </TouchableOpacity>
+                            <View style={styles.button}>
+                                <TouchableOpacity
+                                    style={styles.signIn}
+                                    onPress={() => { }}
+                                >
+                                    <LinearGradient
+                                        colors={['#08d4c4', '#01ab9d']}
+                                        style={styles.signIn}
+                                    >
+                                        <Text style={[styles.textSign, {
+                                            color: '#F5F5F5'
+                                        }]}>Đăng nhập</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    onPress={() => navigation.navigate('signup')}
+                                    style={[styles.signIn, {
+                                        borderColor: '#00cfcb',
+                                        fontWeight: 'bold',
+                                        marginTop: 15,
+                                        borderWidth: 1,
+                                    }]}
+                                >
+                                    <Text style={[styles.textSign, {
+                                        color: '#01ab9d',
+                                    }]}>Đăng ký</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </KeyboardAwareScrollView>
+                    </Animatable.View>
+                </View>
+            </TouchableWithoutFeedback>
         </SafeAreaView>
     );
 };
@@ -155,11 +161,11 @@ const styles = StyleSheet.create({
         height: height_logo,
     },
     footer: {
-        flex: 3,
+        flex: 2,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingVertical: 10,
     },
     text_header: {
