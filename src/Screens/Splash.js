@@ -18,7 +18,7 @@ const SplashScreen = ({navigation}) => {
     const { colors } = useTheme();
     return (
       <SafeAreaView style={styles.container}>
-          <StatusBar backgroundColor='#009387' barStyle="light-content"/>
+          <StatusBar backgroundColor='#00cfcb' barStyle="light-content"/>
         <View style={styles.header}>
             <Animatable.Image 
                 animation="bounceIn"
@@ -41,7 +41,7 @@ const SplashScreen = ({navigation}) => {
             <View style={styles.button}>
             <TouchableOpacity onPress={()=>navigation.replace('signin')}>
                 <LinearGradient
-                    colors={['#08d4c4', '#01ab9d']}
+                    colors={['#08d4c4', '#00cfcb']}
                     style={styles.signIn}
                 >
                     <Text style={styles.textSign}>Bắt đầu ngay</Text>
@@ -66,7 +66,7 @@ const height_logo = height * 0.28;
 const styles = StyleSheet.create({
   container: {
     flex: 1, 
-    backgroundColor: '#009387'
+    backgroundColor: '#00cfcb'
   },
   header: {
       flex: 2,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -10,32 +10,32 @@ import {
     Dimensions,
     SafeAreaView,
     Image,
-    KeyboardAvoidingView,
 
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
-
+import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 const SignIn = ({ navigation }) => {
 
     const [data, setData] = React.useState({
         username: '',
         password: '',
-        check_textInputChange: false
     });
+    const [check_textInputChange, setcheck_textInputChange] = useState(false);
 
     const updateSecureTextEntry = () => {
-        setData({
-            secureTextEntry: !data.secureTextEntry
+        setcheck_textInputChange({
+            secureTextEntry: !check_textInputChange.secureTextEntry
         });
     }
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar backgroundColor='#009387' Style="light-content" />
+            <StatusBar backgroundColor='#00cfcb' Style="light-content" />
             <View style={styles.header}>
-                <Image
+                <Animatable.Image
+                    animation="fadeInDown"
                     source={require('../Images/logo.png')}
                     style={styles.logo}
                     resizeMode="stretch"
@@ -46,7 +46,11 @@ const SignIn = ({ navigation }) => {
                 animation="fadeInUpBig"
                 style={styles.footer
                 }>
-                <KeyboardAvoidingView behavior="padding" >
+                <KeyboardAwareScrollView
+                    extraHeight={210}
+                    enableOnAndroid
+                    showsVerticalScrollIndicator={false}
+                >
                     <Text style={[styles.text_footer, {
                     }]}>Email</Text>
                     <View style={styles.action}>
@@ -56,7 +60,7 @@ const SignIn = ({ navigation }) => {
                             size={20}
                         />
                         <TextInput
-                            placeholder="Nhập email"
+                            placeholder="Nhập tài khoản email"
                             placeholderTextColor="#666666"
                             style={styles.textInput}
                             autoCapitalize="none"
@@ -72,14 +76,14 @@ const SignIn = ({ navigation }) => {
                         <TextInput
                             placeholder="Nhập mật khẩu"
                             placeholderTextColor="#666666"
-                            secureTextEntry={data.secureTextEntry ? true : false}
+                            secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
                             style={styles.textInput}
                             autoCapitalize="none"
                         />
                         <TouchableOpacity
                             onPress={updateSecureTextEntry}
                         >
-                            {data.secureTextEntry ?
+                            {check_textInputChange.secureTextEntry ?
                                 <Feather
                                     name="eye-off"
                                     color="grey"
@@ -107,24 +111,25 @@ const SignIn = ({ navigation }) => {
                                 style={styles.signIn}
                             >
                                 <Text style={[styles.textSign, {
-                                    color: '#fff'
+                                    color: '#F5F5F5'
                                 }]}>Đăng nhập</Text>
                             </LinearGradient>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => navigation.navigate()}
+                            onPress={() => navigation.navigate('signup')}
                             style={[styles.signIn, {
-                                borderColor: '#009387',
-                                borderWidth: 1,
-                                marginTop: 15
+                                borderColor: '#00cfcb',
+                                fontWeight:'bold',
+                                marginTop: 15,
+                                borderWidth:1,
                             }]}
                         >
                             <Text style={[styles.textSign, {
-                                color: '#009387'
+                                color: '#01ab9d',
                             }]}>Đăng ký</Text>
                         </TouchableOpacity>
                     </View>
-                </KeyboardAvoidingView>
+                </KeyboardAwareScrollView>
             </Animatable.View>
         </SafeAreaView>
     );
@@ -137,12 +142,12 @@ const height_logo = height * 0.15;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#009387'
+        backgroundColor: '#00cfcb'
     },
     header: {
         flex: 1,
         paddingHorizontal: 20,
-        paddingBottom: 50
+        paddingBottom: 20,
     },
     logo: {
         marginLeft: height_logo * 1,
@@ -155,13 +160,14 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 20,
-        paddingVertical: 30,
+        paddingVertical: 10,
     },
     text_header: {
         flex: 1,
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 30,
+        marginVertical: 10,
     },
     text_footer: {
         paddingLeft: 20,

@@ -23,6 +23,13 @@ const StackNavigator = ({navigation} ) => {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="signup"
+                component={SignUp}
+                options={{
+                    headerShown: false,
+                }}
+            />
         </Stack.Navigator>
     );
 }
