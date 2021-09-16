@@ -17,6 +17,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
+import auth from '@react-native-firebase/auth';
+
 const SignIn = ({ navigation }) => {
 
     const [username, setUsername] = useState('')
@@ -30,7 +32,15 @@ const SignIn = ({ navigation }) => {
     }
     const checkSignin = () => {
         if (username && password) {
-
+            auth().signInWithEmailAndPassword(username, password)
+                .then((userCredential) => {
+                    //  const user = userCredential.user;
+                    alert('ok ')
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    console.log(errorCode)
+                });
         }
         else {
             alert('vãi ca lozz ba')
