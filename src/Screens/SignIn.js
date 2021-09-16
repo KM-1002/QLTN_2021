@@ -32,8 +32,8 @@ const SignIn = ({ navigation }) => {
     }
     return (
         <SafeAreaView style={styles.container}>
+            <StatusBar backgroundColor='#00cfcb' Style="light-content" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <StatusBar backgroundColor='#00cfcb' Style="light-content" />
                 <View style={styles.container}>
                     <View style={styles.header}>
                         <Animatable.Image
@@ -42,7 +42,7 @@ const SignIn = ({ navigation }) => {
                             style={styles.logo}
                             resizeMode="stretch"
                         />
-                        <Text style={styles.text_header}>Đăng nhập ngay!</Text>
+                        <Text style={styles.text_header}>Đăng nhập ngay</Text>
                     </View>
                     <Animatable.View
                         animation="fadeInUpBig"
@@ -82,7 +82,7 @@ const SignIn = ({ navigation }) => {
                                     style={styles.textInput}
                                     autoCapitalize="none"
                                 />
-                                <TouchableOpacity style={{ borderWidth: 2 }}
+                                <TouchableOpacity
                                     onPress={updateSecureTextEntry}>
                                     {check_textInputChange.secureTextEntry ?
                                         <Feather
