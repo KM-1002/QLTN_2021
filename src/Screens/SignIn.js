@@ -19,7 +19,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 const SignIn = ({ navigation }) => {
 
-    const [data, setData] = React.useState({
+    const [data, setData] = useState({
         username: '',
         password: '',
     });
@@ -32,8 +32,8 @@ const SignIn = ({ navigation }) => {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar backgroundColor='#00cfcb' Style="light-content" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <StatusBar backgroundColor='#00cfcb' Style="light-content" />
                 <View style={styles.container}>
                     <View style={styles.header}>
                         <Animatable.Image
@@ -51,8 +51,8 @@ const SignIn = ({ navigation }) => {
                         <KeyboardAwareScrollView
                             extraHeight={150}
                             enableOnAndroid
-                            showsVerticalScrollIndicator={false}
-                        >
+                            showsVerticalScrollIndicator={false}>
+
                             <Text style={[styles.text_footer, {
                             }]}>Email</Text>
                             <View style={styles.action}>
@@ -82,20 +82,19 @@ const SignIn = ({ navigation }) => {
                                     style={styles.textInput}
                                     autoCapitalize="none"
                                 />
-                                <TouchableOpacity
-                                    onPress={updateSecureTextEntry}
-                                >
+                                <TouchableOpacity style={{ borderWidth: 2 }}
+                                    onPress={updateSecureTextEntry}>
                                     {check_textInputChange.secureTextEntry ?
                                         <Feather
-                                            name="eye-off"
-                                            color="grey"
+                                            name="eye"
                                             size={20}
+                                            color="green"
                                         />
                                         :
                                         <Feather
-                                            name="eye"
-                                            color="green"
                                             size={20}
+                                            name="eye-off"
+                                            color="grey"
                                         />
                                     }
                                 </TouchableOpacity>
@@ -106,12 +105,10 @@ const SignIn = ({ navigation }) => {
                             <View style={styles.button}>
                                 <TouchableOpacity
                                     style={styles.signIn}
-                                    onPress={() => { }}
-                                >
+                                    onPress={() => { }}>
                                     <LinearGradient
                                         colors={['#08d4c4', '#01ab9d']}
-                                        style={styles.signIn}
-                                    >
+                                        style={styles.signIn}>
                                         <Text style={[styles.textSign, {
                                             color: '#F5F5F5'
                                         }]}>Đăng nhập</Text>
@@ -146,12 +143,11 @@ const height_logo = height * 0.15;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#00cfcb'
+        backgroundColor: '#00cfcb',
+        justifyContent: 'flex-start'
     },
     header: {
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingBottom: 20,
+        paddingTop: '25%'
     },
     logo: {
         marginLeft: height_logo * 1,
@@ -159,19 +155,22 @@ const styles = StyleSheet.create({
         height: height_logo,
     },
     footer: {
-        flex: 2,
         backgroundColor: '#fff',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0,
+        paddingHorizontal: 10,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
+        paddingTop: 10,
+        height: '60%'
     },
     text_header: {
-        flex: 1,
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 30,
-        marginVertical: 10,
+        textAlign: 'center'
     },
     text_footer: {
         paddingLeft: 20,

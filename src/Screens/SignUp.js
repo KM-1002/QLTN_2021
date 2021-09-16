@@ -20,7 +20,7 @@ import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scr
 
 const SingUp = ({ navigation }) => {
 
-    const [data, setData] = React.useState({
+    const [data, setData] = useState({
         username: '',
         password: '',
         repassword: '',
