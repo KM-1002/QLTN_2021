@@ -87,14 +87,14 @@ const SignIn = ({ navigation }) => {
                                 >
                                     {check_textInputChange.secureTextEntry ?
                                         <Feather
-                                            name="eye-off"
-                                            color="grey"
+                                            name="eye"
+                                            color="green"
                                             size={20}
                                         />
                                         :
                                         <Feather
-                                            name="eye"
-                                            color="green"
+                                            name="eye-off"
+                                            color="grey"
                                             size={20}
                                         />
                                     }
