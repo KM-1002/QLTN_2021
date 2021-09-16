@@ -19,16 +19,22 @@ import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 const SignIn = ({ navigation }) => {
 
-    const [data, setData] = useState({
-        username: '',
-        password: '',
-    });
+    const [username, setUsername] = useState('')
+    const [password, setPassword] = useState('')
     const [check_textInputChange, setcheck_textInputChange] = useState(false);
 
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
         });
+    }
+    const checkSignin = () => {
+        if (username && password) {
+
+        }
+        else {
+            alert('vãi ca lozz ba')
+        }
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -66,6 +72,7 @@ const SignIn = ({ navigation }) => {
                                     placeholderTextColor="#666666"
                                     style={styles.textInput}
                                     autoCapitalize="none"
+                                    onChange={(input) => setUsername(input)}
                                 />
                             </View>
                             <Text style={styles.text_footer}>Mật khẩu</Text>
@@ -81,6 +88,7 @@ const SignIn = ({ navigation }) => {
                                     secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
                                     style={styles.textInput}
                                     autoCapitalize="none"
+                                    onChange={(input) => setPassword(input)}
                                 />
                                 <TouchableOpacity
                                     onPress={updateSecureTextEntry}>
@@ -105,7 +113,7 @@ const SignIn = ({ navigation }) => {
                             <View style={styles.button}>
                                 <TouchableOpacity
                                     style={styles.signIn}
-                                    onPress={() => { }}>
+                                    onPress={checkSignin}>
                                     <LinearGradient
                                         colors={['#08d4c4', '#01ab9d']}
                                         style={styles.signIn}>
@@ -163,7 +171,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        paddingTop: 10,
+        paddingTop: 20,
         height: '60%'
     },
     text_header: {
