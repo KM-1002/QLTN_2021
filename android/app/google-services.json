@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "79533610663",
-    "project_id": "qltn-2021",
-    "storage_bucket": "qltn-2021.appspot.com"
+    "project_number": "838616673110",
+    "project_id": "qltn-71213",
+    "storage_bucket": "qltn-71213.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:79533610663:android:c93a95d7de16eae5e42d82",
+        "mobilesdk_app_id": "1:838616673110:android:658ddf5b1f65b1d12f44f7",
         "android_client_info": {
           "package_name": "com.qltn_2021"
         }
       },
       "oauth_client": [
         {
-          "client_id": "79533610663-6ihl64b89jkaa32h1qkh9p76a3efgbqp.apps.googleusercontent.com",
+          "client_id": "838616673110-snrj6q0583fvveu40de16as7drihjlno.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.qltn_2021",
-            "certificate_hash": "ce89376c15972a23c981da0786af3baad4ddebd9"
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },
         {
-          "client_id": "79533610663-ugffjar30i1dmpbdtj9th9794taf51nc.apps.googleusercontent.com",
+          "client_id": "838616673110-shmngt4bosgqe2pok5bvrd4eoqoim8lt.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDpK0ZOx2wjC41CJOrlBAOzHHFNHHD8iGg"
+          "current_key": "AIzaSyB9Wky3RO-zlKoxtMTyjDb36CHGCnLjrfw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "79533610663-ugffjar30i1dmpbdtj9th9794taf51nc.apps.googleusercontent.com",
+              "client_id": "838616673110-shmngt4bosgqe2pok5bvrd4eoqoim8lt.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

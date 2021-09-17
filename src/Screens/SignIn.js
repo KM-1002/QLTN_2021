@@ -23,7 +23,7 @@ const SignIn = ({ navigation }) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [check_textInputChange, setcheck_textInputChange] = useState(false);
+    const [check_textInputChange, setcheck_textInputChange] = useState(false)
 
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
@@ -32,13 +32,20 @@ const SignIn = ({ navigation }) => {
     }
     const checkSignin = () => {
         if (username && password) {
-            auth().signInWithEmailAndPassword(username, password)
-                .then((userCredential) => {
-                    //  const user = userCredential.user;
-                    alert('ok ')
+            auth().signInWithEmailAndPassword(email, password)
+                .then(() => {
+                    
                 })
                 .catch((error) => {
-                    const errorCode = error.code;
+                    var errorCode = error.code;
+                    Toast.hide()
+                    if (errorCode == "auth/user-disabled") {
+                        alert('Tài khoản của bạn đã bị khoá');
+                    }
+                    else if (errorCode == "auth/network-request-failed") {
+                        alert('Không có kết nối Internet');
+                    }
+                    else alert('Email hoặc mật khẩu không đúng');
                     console.log(errorCode)
                 });
         }
@@ -82,7 +89,7 @@ const SignIn = ({ navigation }) => {
                                     placeholderTextColor="#666666"
                                     style={styles.textInput}
                                     autoCapitalize="none"
-                                    onChange={(input) => setUsername(input)}
+                                    onChangeText={(input) => setUsername(input)}
                                 />
                             </View>
                             <Text style={styles.text_footer}>Mật khẩu</Text>
@@ -98,7 +105,7 @@ const SignIn = ({ navigation }) => {
                                     secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
                                     style={styles.textInput}
                                     autoCapitalize="none"
-                                    onChange={(input) => setPassword(input)}
+                                    onChangeText={(input) => setPassword(input)}
                                 />
                                 <TouchableOpacity
                                     onPress={updateSecureTextEntry}>
