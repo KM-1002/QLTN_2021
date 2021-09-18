@@ -100,13 +100,13 @@ const SignIn = ({ navigation }) => {
                                     }
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={()=>navigation.push('forgotpass')}>
+                            <TouchableOpacity onPress={()=>navigation.navigate('forgotpass')}>
                                 <Text style={{ color: '#009387', marginTop: 15, paddingLeft: 20 }}>Quên mật khẩu?</Text>
                             </TouchableOpacity>
                             <View style={styles.button}>
                                 <TouchableOpacity
                                     style={styles.signIn}
-                                    onPress={() => { }}
+                                    onPress={() => {navigation.navigate('')}}
                                 >
                                     <LinearGradient
                                         colors={['#08d4c4', '#01ab9d']}
@@ -146,12 +146,11 @@ const height_logo = height * 0.15;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#00cfcb'
+        backgroundColor: '#00cfcb',
+        justifyContent: 'flex-start'
     },
     header: {
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingBottom: 20,
+        paddingTop: '25%'
     },
     logo: {
         marginLeft: height_logo * 1,
@@ -159,19 +158,22 @@ const styles = StyleSheet.create({
         height: height_logo,
     },
     footer: {
-        flex: 2,
         backgroundColor: '#fff',
+        position: 'absolute',
+        bottom: 0,
+        right: 0,
+        left: 0,
+        paddingHorizontal: 10,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        paddingHorizontal: 10,
-        paddingVertical: 10,
+        paddingTop: 20,
+        height: '60%'
     },
     text_header: {
-        flex: 1,
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 30,
-        marginVertical: 10,
+        textAlign: 'center'
     },
     text_footer: {
         paddingLeft: 20,
