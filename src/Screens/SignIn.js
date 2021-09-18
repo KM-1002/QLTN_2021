@@ -11,6 +11,8 @@ import {
     SafeAreaView,
     TouchableWithoutFeedback,
     Keyboard,
+    Alert,
+
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -41,12 +43,12 @@ const SignIn = ({ navigation }) => {
                 .catch((error) => {
                     var errorCode = error.code;
                     if (errorCode == "auth/user-disabled") {
-                        alert('Tài khoản của bạn đã bị khoá');
+                        Alert.alert('Opps!','Tài khoản của bạn đã bị khoá');
                     }
                     else if (errorCode == "auth/network-request-failed") {
-                        alert('Không có kết nối Internet');
+                        Alert.alert('Opps!','Không có kết nối Internet');
                     }
-                    else alert('Email hoặc mật khẩu không đúng');
+                    else alert('Opps!','Email hoặc mật khẩu không đúng');
                     console.log(errorCode)
                 });
         }
@@ -126,7 +128,7 @@ const SignIn = ({ navigation }) => {
                                     }
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={()=>navigation.push('forgotpass')}>
+                            <TouchableOpacity onPress={()=>navigation.navigate('forgotpass')}>
                                 <Text style={{ color: '#009387', marginTop: 15, paddingLeft: 20 }}>Quên mật khẩu?</Text>
                             </TouchableOpacity>
                             <View style={styles.button}>
