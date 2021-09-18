@@ -12,7 +12,6 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     Alert,
-
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -29,7 +28,7 @@ const SignIn = ({ navigation }) => {
 
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
-            secureTextEntry: !check_textInputChange.secureTextEntry
+            secureTextEntry: !check_textInputChange.secureTextEntry 
 
         });
     }
