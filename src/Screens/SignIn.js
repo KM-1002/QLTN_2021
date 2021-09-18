@@ -34,24 +34,22 @@ const SignIn = ({ navigation }) => {
 
     const checkSignin = () => {
         if (username && password) {
-            auth().signInWithEmailAndPassword(email, password)
+            auth().signInWithEmailAndPassword(username, password)
                 .then(() => {
-
                 })
                 .catch((error) => {
                     var errorCode = error.code;
                     if (errorCode == "auth/user-disabled") {
                         Alert.alert('Opps!','Tài khoản của bạn đã bị khoá');
                     }
-                    else if (errorCode == "auth/network-request-failed") {
+                    if (errorCode == "auth/network-request-failed") {
                         Alert.alert('Opps!','Không có kết nối Internet');
                     }
-                    else alert('Opps!','Email hoặc mật khẩu không đúng');
                     console.log(errorCode)
                 });
         }
         else {
-            alert('vãi ca lozz ba')
+            Alert.alert('Opps!','Vui lòng nhập đầy đủ thông tin');
         }
 
     }
@@ -71,8 +69,9 @@ const SignIn = ({ navigation }) => {
                     </View>
                     <Animatable.View
                         animation="fadeInUpBig"
-                        style={styles.footer
-                        }>
+                        style={styles.footer}
+                    >
+                        <View style={styles.content}>
                         <KeyboardAwareScrollView
                             extraHeight={150}
                             enableOnAndroid
@@ -156,6 +155,7 @@ const SignIn = ({ navigation }) => {
                                 </TouchableOpacity>
                             </View>
                         </KeyboardAwareScrollView>
+                        </View>
                     </Animatable.View>
                 </View>
             </TouchableWithoutFeedback>
@@ -174,25 +174,26 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     header: {
-        paddingTop: '25%'
+        flex:1.25,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     logo: {
-        marginLeft: height_logo * 1,
         width: height_logo,
         height: height_logo,
     },
     footer: {
+        flex: Platform.OS === 'ios' ? 3 : 3,
         backgroundColor: '#fff',
-        position: 'absolute',
-        bottom: 0,
-        right: 0,
-        left: 0,
-        paddingHorizontal: 10,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        paddingTop: 20,
-        height: '60%'
+        paddingHorizontal: 10,
+        paddingVertical: 10,
     },
+    content: {
+        marginTop: 10,
+        width:370
+     },
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
@@ -209,20 +210,15 @@ const styles = StyleSheet.create({
         marginTop: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#f2f2f2',
-        paddingBottom: 5
-    },
-    actionError: {
-        flexDirection: 'row',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#FF0000',
-        paddingBottom: 5
+        paddingBottom: 5,
+        paddingHorizontal: 10,
     },
     textInput: {
         flex: 1,
         marginTop: Platform.OS === 'ios' ? 0 : -12,
         color: '#05375a',
         fontSize: 15,
+        paddingLeft: 15,
     },
     errorMsg: {
         color: '#FF0000',
