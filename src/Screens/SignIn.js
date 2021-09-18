@@ -106,7 +106,7 @@ const SignIn = ({ navigation }) => {
                             <View style={styles.button}>
                                 <TouchableOpacity
                                     style={styles.signIn}
-                                    onPress={() => { }}
+                                    onPress={() => {navigation.navigate('menu')}}
                                 >
                                     <LinearGradient
                                         colors={['#08d4c4', '#01ab9d']}

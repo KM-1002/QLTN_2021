@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 
-const Home = ({ navigation }) => {
+const News = ({ navigation }) => {
     
 
     return (
@@ -23,7 +23,7 @@ const Home = ({ navigation }) => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <Text style={styles.text_header}>Trang chủ</Text>
+                        <Text style={styles.text_header}>Tin tức</Text>
                     </View>
                     <Animatable.View
                         style={styles.footer}
@@ -35,7 +35,7 @@ const Home = ({ navigation }) => {
     );
 };
 
-export default Home;
+export default News;
 
 const styles = StyleSheet.create({
     container: {

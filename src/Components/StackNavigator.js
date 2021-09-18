@@ -4,6 +4,7 @@ import Splash from '../Screens/Splash';
 import SignIn from '../Screens/SignIn';
 import SignUp from '../Screens/SignUp';
 import ForgotPass from '../Screens/ForgotPass';
+import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,13 @@ const StackNavigator = ({navigation} ) => {
                 component={ForgotPass}
                 options={{
                     title:'Đặt lại mật khẩu',
+                }}
+            />
+            <Stack.Screen
+                name="menu"
+                component= {TabNavigator}
+                options={{
+                    headerShown: false,
                 }}
             />
         </Stack.Navigator>
