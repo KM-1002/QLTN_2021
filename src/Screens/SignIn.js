@@ -28,7 +28,6 @@ const SignIn = ({ navigation }) => {
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
-
         });
     }
 
