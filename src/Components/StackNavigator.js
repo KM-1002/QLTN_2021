@@ -38,7 +38,7 @@ const StackNavigator = ({ navigation }) => {
                 name="signup"
                 component={SignUp}
                 options={{
-                    headerShown: false,
+                    title:'Đăng ký'
                 }}
             />
             <Stack.Screen

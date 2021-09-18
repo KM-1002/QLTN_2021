@@ -48,123 +48,121 @@ const SingUp = ({ navigation }) => {
                     </View>
                     <Animatable.View
                         animation="fadeInUpBig"
-                        style={styles.footer}
-                    >
-                        <KeyboardAwareScrollView
-                            extraHeight={150}
-                            enableOnAndroid
-                            showsVerticalScrollIndicator={false}
-                        >
-                            <Text style={styles.text_footer}>Email</Text>
-                            <View style={styles.action}>
-                                <FontAwesome
-                                    name="user-o"
-                                    color="#05375a"
-                                    size={20}
-                                />
-                                <TextInput
-                                    placeholder="Nhập tài khoản email"
-                                    style={styles.textInput}
-                                    autoCapitalize="none"
-                                />
-                                {data.check_textInputChange ?
-                                    <Animatable.View
-                                        animation="bounceIn"
+                        style={styles.footer}>
+                        <View style={styles.content}>
+                            <KeyboardAwareScrollView
+                                extraHeight={150}
+                                enableOnAndroid
+                                showsVerticalScrollIndicator={false}>
+                                <Text style={styles.text_footer}>Email</Text>
+                                <View style={styles.action}>
+                                    <FontAwesome
+                                        name="user-o"
+                                        color="#05375a"
+                                        size={20}
+                                    />
+                                    <TextInput
+                                        placeholder="Nhập tài khoản email"
+                                        style={styles.textInput}
+                                        autoCapitalize="none"
+                                    />
+                                    {data.check_textInputChange ?
+                                        <Animatable.View
+                                            animation="bounceIn">
+                                            <Feather
+                                                name="check-circle"
+                                                color="green"
+                                                size={20}
+                                            />
+                                        </Animatable.View>
+                                        : null}
+                                </View>
+                                <Text style={[styles.text_footer, {
+                                }]}>Mật khẩu</Text>
+                                <View style={styles.action}>
+                                    <Feather
+                                        name="lock"
+                                        color="#05375a"
+                                        size={20}
+                                    />
+                                    <TextInput
+                                        placeholder="Nhập mật khẩu"
+                                        secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
+                                        style={styles.textInput}
+                                        autoCapitalize="none"
+                                    />
+                                    <TouchableOpacity
+                                        onPress={updateSecureTextEntry}
                                     >
-                                        <Feather
-                                            name="check-circle"
-                                            color="green"
-                                            size={20}
-                                        />
-                                    </Animatable.View>
-                                    : null}
-                            </View>
-
-                            <Text style={[styles.text_footer, {
-                            }]}>Mật khẩu</Text>
-                            <View style={styles.action}>
-                                <Feather
-                                    name="lock"
-                                    color="#05375a"
-                                    size={20}
-                                />
-                                <TextInput
-                                    placeholder="Nhập mật khẩu"
-                                    secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
-                                    style={styles.textInput}
-                                    autoCapitalize="none"
-                                />
-                                <TouchableOpacity
-                                    onPress={updateSecureTextEntry}
-                                >
-                                    {check_textInputChange.secureTextEntry ?
-                                        <Feather
-                                            name="eye"
-                                            color="green"
-                                            size={20}
-                                        />
-                                        :
-                                        <Feather
-                                            name="eye-off"
-                                            color="grey"
-                                            size={20}
-                                        />
-                                    }
-                                </TouchableOpacity>
-                            </View>
-                            <Text style={styles.text_footer}>Nhập lại mật khẩu</Text>
-                            <View style={styles.action}>
-                                <Feather
-                                    name="lock"
-                                    color="#05375a"
-                                    size={20}
-                                />
-                                <TextInput
-                                    placeholder="Nhập lại mật khẩu"
-                                    secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
-                                    style={styles.textInput}
-                                    autoCapitalize="none"
-                                />
-                            </View>
-                            <Text style={styles.text_footer}>Số điện thoại</Text>
-                            <View style={styles.action}>
-                                <Feather
-                                    name="phone-call"
-                                    color="#05375a"
-                                    size={20}
-                                />
-                                <TextInput
-                                    placeholder="Nhập số điện thoại"
-                                    style={styles.textInput}
-                                    autoCapitalize="none"
-                                />
-                            </View>
-                            <View style={styles.button}>
-                                <TouchableOpacity
-                                    style={styles.signIn}
-                                    onPress={() => { }}
-                                >
-                                    <LinearGradient
-                                        colors={['#08d4c4', '#01ab9d']}
+                                        {check_textInputChange.secureTextEntry ?
+                                            <Feather
+                                                name="eye"
+                                                color="green"
+                                                size={20}
+                                            />
+                                            :
+                                            <Feather
+                                                name="eye-off"
+                                                color="grey"
+                                                size={20}
+                                            />
+                                        }
+                                    </TouchableOpacity>
+                                </View>
+                                <Text style={styles.text_footer}>Nhập lại mật khẩu</Text>
+                                <View style={styles.action}>
+                                    <Feather
+                                        name="lock"
+                                        color="#05375a"
+                                        size={20}
+                                    />
+                                    <TextInput
+                                        placeholder="Nhập lại mật khẩu"
+                                        secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
+                                        style={styles.textInput}
+                                        autoCapitalize="none"
+                                    />
+                                </View>
+                                <Text style={styles.text_footer}>Số điện thoại</Text>
+                                <View style={styles.action}>
+                                    <Feather
+                                        name="phone-call"
+                                        color="#05375a"
+                                        size={20}
+                                    />
+                                    <TextInput
+                                        placeholder="Nhập số điện thoại"
+                                        style={styles.textInput}
+                                        autoCapitalize="none"
+                                    />
+                                </View>
+                                <View style={styles.button}>
+                                    <TouchableOpacity
                                         style={styles.signIn}
+                                        onPress={() => { }}
+                                    >
+                                        <LinearGradient
+                                            colors={['#08d4c4', '#01ab9d']}
+                                            style={styles.signIn}
+                                        >
+                                            <Text style={[styles.textSign, {
+                                                color: '#fff'
+                                            }]}>Đăng ký</Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity
+                                        onPress={() => navigation.goBack('signin')}
+                                        style={{
+                                            marginTop: 15
+                                        }}
                                     >
                                         <Text style={[styles.textSign, {
-                                            color: '#fff'
-                                        }]}>Sign Up</Text>
-                                    </LinearGradient>
-                                </TouchableOpacity>
-                                <TouchableOpacity
-                                    onPress={() => navigation.goBack('signin')}
-                                    style={{
-                                        marginTop: 15
-                                    }}
-                                >
-                                    <Text style={[styles.textSign, {
-                                        color: '#01ab9d'
-                                    }]}>Bạn đã có tài khoản</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </KeyboardAwareScrollView>
+                                            color: '#01ab9d'
+                                        }]}>Bạn đã có tài khoản</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </KeyboardAwareScrollView>
+                        </View>
                     </Animatable.View>
                 </View>
             </TouchableWithoutFeedback>
@@ -174,7 +172,7 @@ const SingUp = ({ navigation }) => {
 
 export default SingUp;
 
-const { height } = Dimensions.get("screen");
+const { height,width } = Dimensions.get("screen");
 const height_logo = height * 0.15;
 const styles = StyleSheet.create({
     container: {
@@ -182,12 +180,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#00cfcb'
     },
     header: {
-        flex: 1,
-        paddingHorizontal: 20,
-        paddingBottom: 5
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1.25,
     },
     logo: {
-        marginLeft: height_logo * 1,
         width: height_logo,
         height: height_logo,
     },
@@ -198,13 +195,16 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 30,
         paddingHorizontal: 10,
         paddingVertical: 10,
-        marginTop: 5,
+    },
+    content: {
+       marginTop: 10,
+       width:370
     },
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 30,
-        paddingVertical: 10,
+        textAlign: 'center'
     },
     text_footer: {
         color: '#05375a',
@@ -217,18 +217,18 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#f2f2f2',
         paddingBottom: 5,
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
     },
     textInput: {
         flex: 1,
         marginTop: Platform.OS === 'ios' ? 0 : -12,
-        paddingLeft: 10,
+        paddingLeft: 15,
         color: '#05375a',
         fontSize: 15,
     },
     button: {
         alignItems: 'center',
-        marginTop: 20
+        marginTop: 20,
     },
     signIn: {
         width: '100%',
