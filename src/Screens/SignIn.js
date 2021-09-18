@@ -28,17 +28,18 @@ const SignIn = ({ navigation }) => {
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
+
         });
     }
+
     const checkSignin = () => {
         if (username && password) {
             auth().signInWithEmailAndPassword(email, password)
                 .then(() => {
-                    
+
                 })
                 .catch((error) => {
                     var errorCode = error.code;
-                    Toast.hide()
                     if (errorCode == "auth/user-disabled") {
                         alert('Tài khoản của bạn đã bị khoá');
                     }
@@ -52,6 +53,7 @@ const SignIn = ({ navigation }) => {
         else {
             alert('vãi ca lozz ba')
         }
+
     }
     return (
         <SafeAreaView style={styles.container}>
