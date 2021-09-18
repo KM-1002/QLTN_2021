@@ -90,7 +90,7 @@ const SingUp = ({ navigation }) => {
                                 />
                                 <TextInput
                                     placeholder="Nhập mật khẩu"
-                                    secureTextEntry={check_textInputChange.secureTextEntry ? true : false}
+                                    secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
                                     style={styles.textInput}
                                     autoCapitalize="none"
                                 />
@@ -99,14 +99,14 @@ const SingUp = ({ navigation }) => {
                                 >
                                     {check_textInputChange.secureTextEntry ?
                                         <Feather
-                                            name="eye-off"
-                                            color="grey"
+                                            name="eye"
+                                            color="green"
                                             size={20}
                                         />
                                         :
                                         <Feather
-                                            name="eye"
-                                            color="green"
+                                            name="eye-off"
+                                            color="grey"
                                             size={20}
                                         />
                                     }
@@ -121,7 +121,7 @@ const SingUp = ({ navigation }) => {
                                 />
                                 <TextInput
                                     placeholder="Nhập lại mật khẩu"
-                                    secureTextEntry={check_textInputChange.secureTextEntry ? true : false}
+                                    secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
                                     style={styles.textInput}
                                     autoCapitalize="none"
                                 />

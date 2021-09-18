@@ -83,7 +83,7 @@ const SignIn = ({ navigation }) => {
                             <View style={styles.action}>
                                 <FontAwesome
                                     name="user-o"
-                                    color={'#fff'}
+                                    color={'#05375a'}
                                     size={20}
                                 />
                                 <TextInput
@@ -98,7 +98,7 @@ const SignIn = ({ navigation }) => {
                             <View style={styles.action}>
                                 <Feather
                                     name="lock"
-                                    color={'#fff'}
+                                    color={'#05375a'}
                                     size={20}
                                 />
                                 <TextInput
@@ -126,7 +126,7 @@ const SignIn = ({ navigation }) => {
                                     }
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity>
+                            <TouchableOpacity onPress={()=>navigation.push('forgotpass')}>
                                 <Text style={{ color: '#009387', marginTop: 15, paddingLeft: 20 }}>Quên mật khẩu?</Text>
                             </TouchableOpacity>
                             <View style={styles.button}>
