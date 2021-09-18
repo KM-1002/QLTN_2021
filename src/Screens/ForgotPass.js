@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -11,13 +11,29 @@ import {
     Image,
     TouchableWithoutFeedback,
     Keyboard,
-    ToastAndroid,
+    Alert,
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import LinearGradient from 'react-native-linear-gradient';
-import Toast from 'react-native-simple-toast';
+import auth from '@react-native-firebase/auth';
+
 const ForgotPass = ({ navigation }) => {
+    const [email, setemail] = useState('')
+
+    const resetPassword = async () => {
+        if (email) {
+            try {
+                await auth().sendPasswordResetEmail(email);
+                Alert.alert('Thông báo', 'Chúng tôi đã gửi link reset mật khẩu đến email của bạn, vui lòng kiểm tra hộp thư hoặc thư rác.')
+            } catch (e) {
+                console.log(e)
+                if (e.code == 'auth/user-not-found') {
+                    alert('Email này chưa được đăng ký.')
+                }
+            }
+        }
+    }
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
@@ -27,18 +43,17 @@ const ForgotPass = ({ navigation }) => {
                         <Image
                             source={require('../Images/logo.png')}
                             style={styles.logo}
-                            resizeMode="stretch"
-                        />
+                            resizeMode="stretch" />
                     </View>
                     <View style={styles.footer}>
                         <View style={styles.content}>
                             <KeyboardAwareScrollView
-                                extraHeight={150}
+                                extraHeight={'20%'}
                                 enableOnAndroid
                                 showsVerticalScrollIndicator={false}
                             >
                                 <Text style={styles.textTitle}>Quên mật khẩu?</Text>
-                                <Text style={styles.textSub}>Nhập tài khoản email đã đăng ký của bạn</Text>
+                                <Text style={styles.textSub}>Nhập tài khoản email đã đăng ký </Text>
                                 <View style={styles.Box}>
                                     <Feather
                                         name="mail"
@@ -48,16 +63,16 @@ const ForgotPass = ({ navigation }) => {
                                     <TextInput
                                         style={styles.textInput}
                                         placeholder="Nhập địa chỉ email"
+                                        onChangeText={(input) => setemail(input)}
                                         autoCapitalize="none">
                                     </TextInput>
                                 </View>
-                                <TouchableOpacity
-                                     onPress={() => {Toast.show("Chúng tôi đã gửi hướng dẫn thay đổi mật khẩu đến email của bạn, vui lòng kiểm tra hộp thư cũng như thư rác của bạn.", Toast.LONG)}}>
+                                <TouchableOpacity onPress={resetPassword}>
                                     <LinearGradient
                                         style={styles.Button}
-                                        colors={['#2eff85', '#01ab9d','#42e3d4']}
+                                        colors={['#2eff85', '#01ab9d', '#42e3d4']}
                                     >
-                                    <Text style={{ fontSize: 16, color: '#fff', fontWeight: 'bold' }}>Đặt lại mật khẩu</Text>
+                                        <Text style={{ fontSize: 16, color: '#fff', fontWeight: 'bold' }}>Đặt lại mật khẩu</Text>
                                     </LinearGradient>
                                 </TouchableOpacity>
                             </KeyboardAwareScrollView>
@@ -79,7 +94,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#00cfcb'
     },
     header: {
-        flex: 1,
+        flex: 1.25,
         justifyContent: 'center',
     },
     footer: {
@@ -100,7 +115,6 @@ const styles = StyleSheet.create({
         color: '#000000',
         fontWeight: 'bold',
         fontSize: 35,
-        marginVertical: 10,
         textAlign: 'center',
     },
     textSub: {
@@ -111,7 +125,7 @@ const styles = StyleSheet.create({
         color: '#585858',
     },
     content: {
-        paddingTop: '25%'
+        paddingTop: '20%'
     },
     Box: {
         flexDirection: 'row',
@@ -134,7 +148,7 @@ const styles = StyleSheet.create({
     Button: {
         marginTop: 25,
         borderWidth: 1,
-        borderColor:'#01ab9d',
+        borderColor: '#01ab9d',
         alignItems: 'center',
         marginHorizontal: 60,
         paddingVertical: 15,

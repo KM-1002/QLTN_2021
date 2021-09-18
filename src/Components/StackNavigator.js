@@ -8,15 +8,17 @@ import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigator = ({navigation} ) => {
+const StackNavigator = ({ navigation }) => {
     return (
         <Stack.Navigator
-        initialRouteName="splash"
-        screenOptions={{
-          headerMode: 'screen',
-          headerTintColor: 'white',
-          headerStyle: { backgroundColor: '#00cfcb' },
-        }}
+            initialRouteName="splash"
+            screenOptions={{
+                headerMode: 'screen',
+                headerTintColor: 'white',
+                headerStyle: { backgroundColor: '#00cfcb',
+               },
+               headerShadowVisible:false
+            }}
         >
             <Stack.Screen
                 name="splash"
@@ -43,16 +45,16 @@ const StackNavigator = ({navigation} ) => {
                 name="forgotpass"
                 component={ForgotPass}
                 options={{
-                    title:'Đặt lại mật khẩu',
+                    title: 'Đặt lại mật khẩu',
                 }}
-            />
-            <Stack.Screen
-                name="menu"
-                component= {TabNavigator}
-                options={{
-                    headerShown: false,
-                }}
-            />
+                    />
+                    <Stack.Screen
+                        name="menu"
+                        component={TabNavigator}
+                        options={{
+                            headerShown: false,
+                        }}
+                    />
         </Stack.Navigator>
     );
 }
