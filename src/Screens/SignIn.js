@@ -11,6 +11,7 @@ import {
     SafeAreaView,
     TouchableWithoutFeedback,
     Keyboard,
+    Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -37,17 +38,16 @@ const SignIn = ({ navigation }) => {
                 .catch((error) => {
                     var errorCode = error.code;
                     if (errorCode == "auth/user-disabled") {
-                        alert('Tài khoản của bạn đã bị khoá');
+                        Alert.alert('Opps!','Tài khoản của bạn đã bị khoá');
                     }
-                    else if (errorCode == "auth/network-request-failed") {
-                        alert('Không có kết nối Internet');
+                    if (errorCode == "auth/network-request-failed") {
+                        Alert.alert('Opps!','Không có kết nối Internet');
                     }
-                    else alert('Email hoặc mật khẩu không đúng');
                     console.log(errorCode)
                 });
         }
         else {
-            alert('vãi ca lozz ba')
+            Alert.alert('Opps!','Vui lòng nhập đầy đủ thông tin');
         }
     }
 
@@ -192,6 +192,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         width: 370,
     },
+    content: {
+        marginTop: 10,
+        width:370
+     },
     text_header: {
         color: '#fff',
         fontWeight: 'bold',

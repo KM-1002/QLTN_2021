@@ -8,7 +8,7 @@ import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigator = ({ navigation }) => {
+const StackNavigator = () => {
     return (
         <Stack.Navigator
             initialRouteName="splash"
