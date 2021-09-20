@@ -15,9 +15,10 @@ const StackNavigator = ({ navigation }) => {
             screenOptions={{
                 headerMode: 'screen',
                 headerTintColor: 'white',
-                headerStyle: { backgroundColor: '#00cfcb',
-               },
-               headerShadowVisible:false
+                headerStyle: {
+                    backgroundColor: '#00cfcb',
+                },
+                headerShadowVisible: false
             }}
         >
             <Stack.Screen
@@ -38,7 +39,7 @@ const StackNavigator = ({ navigation }) => {
                 name="signup"
                 component={SignUp}
                 options={{
-                    title:'Đăng ký'
+                    title: 'Đăng ký'
                 }}
             />
             <Stack.Screen
@@ -47,14 +48,14 @@ const StackNavigator = ({ navigation }) => {
                 options={{
                     title: 'Đặt lại mật khẩu',
                 }}
-                    />
-                    <Stack.Screen
-                        name="menu"
-                        component={TabNavigator}
-                        options={{
-                            headerShown: false,
-                        }}
-                    />
+            />
+            <Stack.Screen
+                name="menu"
+                component={TabNavigator}
+                options={{
+                    headerShown: false,
+                }}
+            />
         </Stack.Navigator>
     );
 }

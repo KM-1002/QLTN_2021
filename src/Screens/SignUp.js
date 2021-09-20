@@ -8,29 +8,77 @@ import {
     StyleSheet,
     Dimensions,
     StatusBar,
-    Image,
     TouchableWithoutFeedback,
     Keyboard,
+    Modal,
+    ActivityIndicator,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
-
+import auth from '@react-native-firebase/auth';
 const SingUp = ({ navigation }) => {
 
-    const [data, setData] = useState({
-        username: '',
-        password: '',
-        repassword: '',
-    });
+    const [username, setusername] = useState('')
+    const [password, setpassword] = useState('')
+    const [repassword, setRepassword] = useState('')
+    const [name, setname] = useState('')
     const [check_textInputChange, setcheck_textInputChange] = useState(false)
+    const [showNext, setshowNext] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
         });
+    }
+    const checkRegister = () => {
+        if (username && password && repassword && name) {
+            if (password.length >= 6) {
+                if (password === repassword) {
+                    setLoading(true);
+                    auth()
+                        .createUserWithEmailAndPassword(username, password)
+                        .then((userCentinal) => {
+                            var user = userCentinal.user;
+                            user.updateProfile({
+                                displayName: name,
+                            })
+                                .then(() => {
+                                    user.sendEmailVerification();
+                                    setshowNext(true)
+                                    setLoading(false)
+                                })
+                        })
+                        .catch(error => {
+                            setLoading(false)
+                            if (error.code === 'auth/email-already-in-use') {
+                                console.log('That email address is already in use!');
+                            }
+
+                            if (error.code === 'auth/invalid-email') {
+                                console.log('That email address is invalid!');
+                            }
+                            if (error.Code == "auth/network-request-failed") {
+                                alert('Không có kết nối Internet');
+                            }
+                            console.error(error);
+                        });
+                }
+                else {
+                    console.log('pass déo giống');
+
+                }
+            }
+            else {
+                console.log('pass 6 ký tự');
+            }
+        }
+        else {
+            console.log('nhập déo đủ');
+        }
     }
     return (
         <View style={styles.container}>
@@ -50,118 +98,124 @@ const SingUp = ({ navigation }) => {
                         animation="fadeInUpBig"
                         style={styles.footer}>
                         <View style={styles.content}>
-                            <KeyboardAwareScrollView
-                                extraHeight={150}
-                                enableOnAndroid
-                                showsVerticalScrollIndicator={false}>
-                                <Text style={styles.text_footer}>Email</Text>
-                                <View style={styles.action}>
-                                    <FontAwesome
-                                        name="user-o"
-                                        color="#05375a"
-                                        size={20}
-                                    />
-                                    <TextInput
-                                        placeholder="Nhập tài khoản email"
-                                        style={styles.textInput}
-                                        autoCapitalize="none"
-                                    />
-                                    {data.check_textInputChange ?
-                                        <Animatable.View
-                                            animation="bounceIn">
-                                            <Feather
-                                                name="check-circle"
-                                                color="green"
-                                                size={20}
-                                            />
-                                        </Animatable.View>
-                                        : null}
+                            {loading ?
+                                <View style={styles.styleLoading}>
+                                    <ActivityIndicator size="large" color="#0000ff" />
                                 </View>
-                                <Text style={[styles.text_footer, {
-                                }]}>Mật khẩu</Text>
-                                <View style={styles.action}>
-                                    <Feather
-                                        name="lock"
-                                        color="#05375a"
-                                        size={20}
-                                    />
-                                    <TextInput
-                                        placeholder="Nhập mật khẩu"
-                                        secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
-                                        style={styles.textInput}
-                                        autoCapitalize="none"
-                                    />
-                                    <TouchableOpacity
-                                        onPress={updateSecureTextEntry}
-                                    >
-                                        {check_textInputChange.secureTextEntry ?
-                                            <Feather
-                                                name="eye"
-                                                color="green"
-                                                size={20}
-                                            />
-                                            :
-                                            <Feather
-                                                name="eye-off"
-                                                color="grey"
-                                                size={20}
-                                            />
-                                        }
-                                    </TouchableOpacity>
+                                : null}
+                            {showNext ?
+                                <View>
+                                    <Text>Vui lòng kiểm tra Email và hộp thư rac</Text>
                                 </View>
-                                <Text style={styles.text_footer}>Nhập lại mật khẩu</Text>
-                                <View style={styles.action}>
-                                    <Feather
-                                        name="lock"
-                                        color="#05375a"
-                                        size={20}
-                                    />
-                                    <TextInput
-                                        placeholder="Nhập lại mật khẩu"
-                                        secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
-                                        style={styles.textInput}
-                                        autoCapitalize="none"
-                                    />
-                                </View>
-                                <Text style={styles.text_footer}>Số điện thoại</Text>
-                                <View style={styles.action}>
-                                    <Feather
-                                        name="phone-call"
-                                        color="#05375a"
-                                        size={20}
-                                    />
-                                    <TextInput
-                                        placeholder="Nhập số điện thoại"
-                                        style={styles.textInput}
-                                        autoCapitalize="none"
-                                    />
-                                </View>
-                                <View style={styles.button}>
-                                    <TouchableOpacity
-                                        style={styles.signIn}
-                                        onPress={() => { }}
-                                    >
-                                        <LinearGradient
-                                            colors={['#08d4c4', '#01ab9d']}
+                                :
+                                <KeyboardAwareScrollView
+                                    extraHeight={150}
+                                    enableOnAndroid
+                                    showsVerticalScrollIndicator={false}>
+                                    <Text style={styles.text_footer}>Email</Text>
+                                    <View style={styles.action}>
+                                        <FontAwesome
+                                            name="user-o"
+                                            color="#05375a"
+                                            size={20}
+                                        />
+                                        <TextInput
+                                            placeholder="Nhập tài khoản email"
+                                            style={styles.textInput}
+                                            autoCapitalize="none"
+                                            onChangeText={(input) => setusername(input)}
+                                        />
+                                    </View>
+                                    <Text style={styles.text_footer}>Họ và tên</Text>
+                                    <View style={styles.action}>
+                                        <Feather
+                                            name="pen-tool"
+                                            color="#05375a"
+                                            size={20}
+                                        />
+                                        <TextInput
+                                            placeholder="Nhập họ và tên"
+                                            style={styles.textInput}
+                                            autoCapitalize="none"
+                                            onChangeText={(input) => setname(input)}
+                                        />
+                                    </View>
+                                    <Text style={styles.text_footer}>Mật khẩu</Text>
+                                    <View style={styles.action}>
+                                        <Feather
+                                            name="lock"
+                                            color="#05375a"
+                                            size={20}
+                                        />
+                                        <TextInput
+                                            placeholder="Nhập mật khẩu"
+                                            secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
+                                            style={styles.textInput}
+                                            autoCapitalize="none"
+                                            onChangeText={(input) => setpassword(input)}
+                                        />
+                                        <TouchableOpacity
+                                            onPress={updateSecureTextEntry}
+                                        >
+                                            {check_textInputChange.secureTextEntry ?
+                                                <Feather
+                                                    name="eye"
+                                                    color="green"
+                                                    size={20}
+                                                />
+                                                :
+                                                <Feather
+                                                    name="eye-off"
+                                                    color="grey"
+                                                    size={20}
+                                                />
+                                            }
+                                        </TouchableOpacity>
+                                    </View>
+                                    <Text style={styles.text_footer}>Nhập lại mật khẩu</Text>
+                                    <View style={styles.action}>
+                                        <Feather
+                                            name="lock"
+                                            color="#05375a"
+                                            size={20}
+                                        />
+                                        <TextInput
+                                            placeholder="Nhập lại mật khẩu"
+                                            secureTextEntry={check_textInputChange.secureTextEntry ? false : true}
+                                            style={styles.textInput}
+                                            autoCapitalize="none"
+                                            onChangeText={(input) => setRepassword(input)}
+                                        />
+                                    </View>
+
+                                    <View style={styles.button}>
+                                        <TouchableOpacity
                                             style={styles.signIn}
+                                            onPress={checkRegister}
+                                        >
+                                            <LinearGradient
+                                                colors={['#08d4c4', '#01ab9d']}
+                                                style={styles.signIn}
+                                            >
+                                                <Text style={[styles.textSign, {
+                                                    color: '#fff'
+                                                }]}>Đăng ký</Text>
+                                            </LinearGradient>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity
+                                            onPress={() => navigation.goBack('signin')}
+                                            style={{
+                                                marginTop: 15
+                                            }}
                                         >
                                             <Text style={[styles.textSign, {
-                                                color: '#fff'
-                                            }]}>Đăng ký</Text>
-                                        </LinearGradient>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        onPress={() => navigation.goBack('signin')}
-                                        style={{
-                                            marginTop: 15
-                                        }}
-                                    >
-                                        <Text style={[styles.textSign, {
-                                            color: '#01ab9d'
-                                        }]}>Bạn đã có tài khoản</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </KeyboardAwareScrollView>
+                                                color: '#01ab9d'
+                                            }]}>Bạn đã có tài khoản</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </KeyboardAwareScrollView>
+                            }
+
                         </View>
                     </Animatable.View>
                 </View>
@@ -171,8 +225,7 @@ const SingUp = ({ navigation }) => {
 };
 
 export default SingUp;
-
-const { height,width } = Dimensions.get("screen");
+const { height, width } = Dimensions.get("screen");
 const height_logo = height * 0.15;
 const styles = StyleSheet.create({
     container: {
@@ -182,7 +235,7 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1.25,
+        flex: 1.1,
     },
     logo: {
         width: height_logo,
@@ -196,15 +249,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 10,
     },
+
     content: {
-       marginTop: 10,
-       width:370
+        marginTop: 10,
+        width: 370,
     },
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 30,
-        textAlign: 'center'
+        textAlign: 'center',
     },
     text_footer: {
         color: '#05375a',
@@ -241,4 +295,16 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
+    styleLoading: {
+        position: "absolute",
+        zIndex: 1,
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#F5FCFF88",
+        paddingBottom: '30%'
+    }
 });

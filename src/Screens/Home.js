@@ -11,11 +11,13 @@ import {
     Image,
     TouchableWithoutFeedback,
     Keyboard,
+    Button,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
+import auth from '@react-native-firebase/auth';
 
 const Home = ({ navigation }) => {
-    
+
 
     return (
         <View style={styles.container}>
@@ -26,8 +28,8 @@ const Home = ({ navigation }) => {
                         <Text style={styles.text_header}>Trang chủ</Text>
                     </View>
                     <Animatable.View
-                        style={styles.footer}
-                    >
+                        style={styles.footer}>
+                        <Button title="đăng xuất" onPress={auth().signOut()} />
                     </Animatable.View>
                 </View>
             </TouchableWithoutFeedback>

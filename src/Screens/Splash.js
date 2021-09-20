@@ -20,7 +20,12 @@ const SplashScreen = ({ navigation }) => {
     useEffect(() => {
         const subscriber = auth().onAuthStateChanged(
             function onAuthStateChanged(user) {
-                console.log(user.emailVerified)
+                if (user && user.emailVerified == true) {
+                    navigation.replace('menu')
+                }
+                else if (!user) {
+                    navigation.replace('signin')
+                }
             });
         return subscriber; // unsubscribe on unmount
     }, []);
