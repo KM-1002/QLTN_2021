@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -33,10 +33,7 @@ const SignIn = ({ navigation }) => {
 
     const checkSignin = () => {
         if (username && password) {
-            auth().signInWithEmailAndPassword(email, password)
-                .then(() => {
-
-                })
+            auth().signInWithEmailAndPassword(username, password)
                 .catch((error) => {
                     var errorCode = error.code;
                     if (errorCode == "auth/user-disabled") {
@@ -52,8 +49,8 @@ const SignIn = ({ navigation }) => {
         else {
             alert('vãi ca lozz ba')
         }
-
     }
+   
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' Style="light-content" />
@@ -125,7 +122,7 @@ const SignIn = ({ navigation }) => {
                                     }
                                 </TouchableOpacity>
                             </View>
-                            <TouchableOpacity onPress={()=>navigation.push('forgotpass')}>
+                            <TouchableOpacity onPress={() => navigation.push('forgotpass')}>
                                 <Text style={{ color: '#009387', marginTop: 15, paddingLeft: 20 }}>Quên mật khẩu?</Text>
                             </TouchableOpacity>
                             <View style={styles.button}>

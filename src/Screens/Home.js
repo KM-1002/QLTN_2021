@@ -17,8 +17,12 @@ import * as Animatable from 'react-native-animatable';
 import auth from '@react-native-firebase/auth';
 
 const Home = ({ navigation }) => {
-
-
+    const signOut = () => {
+        auth().signOut().
+            then(() => {
+                navigation.replace('signin')
+            })
+    }
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
@@ -29,7 +33,7 @@ const Home = ({ navigation }) => {
                     </View>
                     <Animatable.View
                         style={styles.footer}>
-                        <Button title="đăng xuất" onPress={auth().signOut()} />
+                        <Button title="đăng xuất" onPress={signOut} />
                     </Animatable.View>
                 </View>
             </TouchableWithoutFeedback>

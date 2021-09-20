@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
@@ -10,7 +10,6 @@ import {
     StatusBar,
     TouchableWithoutFeedback,
     Keyboard,
-    Modal,
     ActivityIndicator,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
@@ -19,8 +18,18 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
-const SingUp = ({ navigation }) => {
 
+function VerifyScreen(props) {
+    return (<View>
+        <Text>Vui lòng kiểm tra Email và hộp thư rac</Text>
+        <TouchableOpacity onPress={props.signOut}>
+            <Text>Về trang chủ</Text>
+        </TouchableOpacity>
+    </View>);
+}
+
+
+const SingUp = ({ navigation, route }) => {
     const [username, setusername] = useState('')
     const [password, setpassword] = useState('')
     const [repassword, setRepassword] = useState('')
@@ -28,11 +37,18 @@ const SingUp = ({ navigation }) => {
     const [check_textInputChange, setcheck_textInputChange] = useState(false)
     const [showNext, setshowNext] = useState(false)
     const [loading, setLoading] = useState(false)
+    const { show } = route.params ? route.params : false;
 
+    useEffect(() => {
+        setshowNext(show)
+    }, [show])
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
         });
+    }
+    const signOut = () => {
+        auth().signOut()
     }
     const checkRegister = () => {
         if (username && password && repassword && name) {
@@ -46,8 +62,8 @@ const SingUp = ({ navigation }) => {
                             user.updateProfile({
                                 displayName: name,
                             })
-                                .then(() => {
-                                    user.sendEmailVerification();
+                                .then(async () => {
+                                    await auth().currentUser.sendEmailVerification()
                                     setshowNext(true)
                                     setLoading(false)
                                 })
@@ -55,7 +71,7 @@ const SingUp = ({ navigation }) => {
                         .catch(error => {
                             setLoading(false)
                             if (error.code === 'auth/email-already-in-use') {
-                                console.log('That email address is already in use!');
+                                alert('Email đã được đăng ký')
                             }
 
                             if (error.code === 'auth/invalid-email') {
@@ -92,7 +108,7 @@ const SingUp = ({ navigation }) => {
                             style={styles.logo}
                             resizeMode="stretch"
                         />
-                        <Text style={styles.text_header}>Đăng ký ngay!</Text>
+                        <Text style={styles.text_header}>{showNext ? 'vãi cả lozz' : 'Đăng ký ngay!'} </Text>
                     </View>
                     <Animatable.View
                         animation="fadeInUpBig"
@@ -104,9 +120,7 @@ const SingUp = ({ navigation }) => {
                                 </View>
                                 : null}
                             {showNext ?
-                                <View>
-                                    <Text>Vui lòng kiểm tra Email và hộp thư rac</Text>
-                                </View>
+                                <VerifyScreen signOut={signOut}></VerifyScreen>
                                 :
                                 <KeyboardAwareScrollView
                                     extraHeight={150}
@@ -203,7 +217,7 @@ const SingUp = ({ navigation }) => {
                                             </LinearGradient>
                                         </TouchableOpacity>
                                         <TouchableOpacity
-                                            onPress={() => navigation.goBack('signin')}
+                                            onPress={() => navigation.navigate('signin')}
                                             style={{
                                                 marginTop: 15
                                             }}

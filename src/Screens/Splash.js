@@ -6,28 +6,46 @@ import {
     Dimensions,
     StyleSheet,
     StatusBar,
-    SafeAreaView
+    SafeAreaView,
+    LogBox
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useTheme } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
-
+LogBox.ignoreAllLogs();
 const SplashScreen = ({ navigation }) => {
     const { colors } = useTheme();
-
     useEffect(() => {
-        const subscriber = auth().onAuthStateChanged(
-            function onAuthStateChanged(user) {
-                if (user && user.emailVerified == true) {
-                    navigation.replace('menu')
-                }
-                else if (!user) {
-                    navigation.replace('signin')
-                }
-            });
-        return subscriber; // unsubscribe on unmount
+        setTimeout(() => {
+            const subscriber = auth().onAuthStateChanged(
+                function onAuthStateChanged(user) {
+                    const timeValue = setInterval(() => {
+                        if (user) {
+                            user.reload()
+                            auth().currentUser.reload()
+                            console.log(user.emailVerified + ' ' + auth().currentUser.emailVerified)
+                            if (user.emailVerified || auth().currentUser.emailVerified) {
+                                clearInterval(timeValue)
+                                navigation.replace('menu')
+                            }
+                        }
+                    }, 1000);
+                    if (!user) {
+                        navigation.replace('signin')
+                        console.log(user)
+                    }
+                    if (user && !user.emailVerified) {
+                        console.log('chưa xác minh email')
+                        clearInterval(timeValue)
+                        navigation.replace('signup',{show:true})
+                        console.log(user)
+                    }
+
+                });
+            return subscriber; // unsubscribe on unmount
+        }, 2000);
     }, []);
 
     return (
@@ -53,7 +71,7 @@ const SplashScreen = ({ navigation }) => {
                 }]}>Chào mừng đến với QLNT!</Text>
                 <Text style={styles.text}>Đăng nhập ngay với tài khoản</Text>
                 <View style={styles.button}>
-                    <TouchableOpacity onPress={() => navigation.replace('signin')}>
+                    <TouchableOpacity>
                         <LinearGradient
                             colors={['#08d4c4', '#00cfcb']}
                             style={styles.signIn}
