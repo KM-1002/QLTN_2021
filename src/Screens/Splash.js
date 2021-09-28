@@ -21,31 +21,26 @@ const SplashScreen = ({ navigation }) => {
         setTimeout(() => {
             const subscriber = auth().onAuthStateChanged(
                 function onAuthStateChanged(user) {
-                    const timeValue = setInterval(() => {
-                        if (user) {
-                            user.reload()
-                            auth().currentUser.reload()
-                            console.log(user.emailVerified + ' ' + auth().currentUser.emailVerified)
-                            if (user.emailVerified || auth().currentUser.emailVerified) {
-                                clearInterval(timeValue)
-                                navigation.replace('menu')
-                            }
+                    const timeRequest = setInterval(() => {
+                        if (user) { auth().currentUser.reload(); user.reload() };
+                        if (user && user.emailVerified) {
+                            navigation.replace('menu')
+                            clearInterval(timeRequest)  
+                        }
+                        else if (user && !user.emailVerified) {
+                            console.log('chưa xác minh email')
+                            clearInterval(timeRequest)
+                            navigation.replace('signup', { show: true })
+                        }
+                        else if (!user) {
+                            clearInterval(timeRequest)
+                            navigation.replace('signin')
+                            console.log(user)
                         }
                     }, 1000);
-                    if (!user) {
-                        navigation.replace('signin')
-                        console.log(user)
-                    }
-                    if (user && !user.emailVerified) {
-                        console.log('chưa xác minh email')
-                        clearInterval(timeValue)
-                        navigation.replace('signup',{show:true})
-                        console.log(user)
-                    }
-
                 });
             return subscriber; // unsubscribe on unmount
-        }, 2000);
+        }, 1000);
     }, []);
 
     return (

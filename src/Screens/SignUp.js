@@ -11,6 +11,7 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     ActivityIndicator,
+    Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -20,10 +21,20 @@ import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scr
 import auth from '@react-native-firebase/auth';
 
 function VerifyScreen(props) {
-    return (<View>
-        <Text>Vui lòng kiểm tra Email và hộp thư rac</Text>
-        <TouchableOpacity onPress={props.signOut}>
-            <Text>Về trang chủ</Text>
+    return (<View style={styles.contentVerify}>
+        <View style={styles.boxVerify}>
+            <Text style={styles.titleVerify}>THÔNG BÁO!</Text>
+            <Text style={styles.textVerify}>
+                - Một tin nhắn đã được gửi đến tài khoản email của bạn.
+            </Text>
+            <Text style={styles.textVerify}>
+                - Vui lòng kiểm tra email hoặc thùng rác để tiến hành xác nhận đăng ký tài khoản
+            </Text>
+        </View>
+        <TouchableOpacity
+            style={styles.buttonVerify}
+            onPress={props.signOut}>
+            <Text style={styles.textinputVerify}>Trở về trang chủ</Text>
         </TouchableOpacity>
     </View>);
 }
@@ -42,13 +53,35 @@ const SingUp = ({ navigation, route }) => {
     useEffect(() => {
         setshowNext(show)
     }, [show])
+    useEffect(() => {
+        const checkVerify = setInterval(() => {
+            if (showNext) {
+                if (auth().currentUser) {
+                    console.log('đang check')
+                    auth().currentUser.reload();
+                    if (auth().currentUser.emailVerified) {
+                        console.log('ok dit me may')
+                        navigation.replace('menu')
+                        clearInterval(checkVerify)
+                    }
+                }
+                return () => {
+                    clearInterval(checkVerify)
+                }
+            }
+        }, 2000);
+    }, [showNext])
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
         });
     }
     const signOut = () => {
-        auth().signOut()
+        auth().signOut().then(() => {
+            setTimeout(() => {
+                setshowNext(false)
+            }, 1000);
+        })
     }
     const checkRegister = () => {
         if (username && password && repassword && name) {
@@ -71,29 +104,29 @@ const SingUp = ({ navigation, route }) => {
                         .catch(error => {
                             setLoading(false)
                             if (error.code === 'auth/email-already-in-use') {
-                                alert('Email đã được đăng ký')
+                                Alert.alert('Opps, có lỗi xảy ra!', 'Email đã được đăng ký')
                             }
 
                             if (error.code === 'auth/invalid-email') {
-                                console.log('That email address is invalid!');
+                                Alert.alert('Opps, có lỗi xảy ra!', 'Địa chỉ email không hợp lệ');
                             }
                             if (error.Code == "auth/network-request-failed") {
-                                alert('Không có kết nối Internet');
+                                Alert.alert('Opps, có lỗi xảy ra!', 'Không có kết nối Internet');
                             }
                             console.error(error);
                         });
                 }
                 else {
-                    console.log('pass déo giống');
+                    Alert.alert('Opps, có lỗi xảy ra!', 'Mật khẩu nhập lại không khớp');
 
                 }
             }
             else {
-                console.log('pass 6 ký tự');
+                Alert.alert('Opps, có lỗi xảy ra!', 'Mật khẩu tối thiểu 6 ký tự');
             }
         }
         else {
-            console.log('nhập déo đủ');
+            Alert.alert('Opps, có lỗi xảy ra!', 'Vui lòng nhập đầy đủ thông tin');
         }
     }
     return (
@@ -108,7 +141,7 @@ const SingUp = ({ navigation, route }) => {
                             style={styles.logo}
                             resizeMode="stretch"
                         />
-                        <Text style={styles.text_header}>{showNext ? 'vãi cả lozz' : 'Đăng ký ngay!'} </Text>
+                        <Text style={styles.text_header}>{showNext ? 'Xác nhận tài khoản!' : 'Đăng ký ngay!'} </Text>
                     </View>
                     <Animatable.View
                         animation="fadeInUpBig"
@@ -201,7 +234,6 @@ const SingUp = ({ navigation, route }) => {
                                             onChangeText={(input) => setRepassword(input)}
                                         />
                                     </View>
-
                                     <View style={styles.button}>
                                         <TouchableOpacity
                                             style={styles.signIn}
@@ -320,5 +352,42 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         backgroundColor: "#F5FCFF88",
         paddingBottom: '30%'
+    },
+    contentVerify: {
+        marginTop: '15%',
+        paddingHorizontal: '3.5%',
+    },
+    boxVerify: {
+        marginTop: "5%",
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderWidth: 1,
+    },
+    titleVerify: {
+        fontSize: 25,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: "red",
+    },
+    textVerify: {
+        paddingVertical: "1%",
+        fontSize: 18,
+    },
+    buttonVerify: {
+        borderWidth: 1,
+        backgroundColor: "#fff",
+        margin: "10%",
+        height: 40,
+        justifyContent: 'center',
+        borderColor: "#00cfcb",
+        borderTopLeftRadius: 30,
+        borderBottomRightRadius: 30,
+
+
+    },
+    textinputVerify: {
+        fontSize: 20,
+        color: "#00cfcb",
+        textAlign: 'center',
     }
 });

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
     View,
     Text,
@@ -88,6 +88,8 @@ const SignIn = ({ navigation }) => {
                                         placeholderTextColor="#666666"
                                         style={styles.textInput}
                                         autoCapitalize="none"
+                                        keyboardType = "email-address"
+                                        returnKeyType = "next"
                                         onChangeText={(input) => setUsername(input)}
                                     />
                                 </View>

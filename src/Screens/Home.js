@@ -29,7 +29,9 @@ const Home = ({ navigation }) => {
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <Text style={styles.text_header}>Trang chủ</Text>
+                        <Text style={[styles.text_header,{paddingVertical: 10 }]}>Trang chủ</Text>
+                        <Text style={styles.text_header}>Xin chào,</Text>
+                        <Text style={styles.text_header}>{auth().currentUser.displayName}</Text>
                     </View>
                     <Animatable.View
                         style={styles.footer}>
@@ -66,7 +68,6 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 30,
-        paddingVertical: 10,
     },
     text_footer: {
         color: '#05375a',
