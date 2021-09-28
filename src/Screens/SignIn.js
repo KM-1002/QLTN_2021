@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -38,16 +38,17 @@ const SignIn = ({ navigation }) => {
                 .catch((error) => {
                     var errorCode = error.code;
                     if (errorCode == "auth/user-disabled") {
-                        Alert.alert('Opps!','Tài khoản của bạn đã bị khoá');
+                        Alert.alert('Opps!', 'Tài khoản của bạn đã bị khoá');
                     }
                     if (errorCode == "auth/network-request-failed") {
-                        Alert.alert('Opps!','Không có kết nối Internet');
+                        Alert.alert('Opps!', 'Không có kết nối Internet');
                     }
+                    Alert.alert('Opps!','Email hoặc mật khẩu không đúng');
                     console.log(errorCode)
                 });
         }
         else {
-            Alert.alert('Opps!','Vui lòng nhập đầy đủ thông tin');
+            Alert.alert('Opps!', 'Vui lòng nhập đầy đủ thông tin');
         }
     }
 
@@ -88,8 +89,8 @@ const SignIn = ({ navigation }) => {
                                         placeholderTextColor="#666666"
                                         style={styles.textInput}
                                         autoCapitalize="none"
-                                        keyboardType = "email-address"
-                                        returnKeyType = "next"
+                                        keyboardType="email-address"
+                                        returnKeyType="next"
                                         onChangeText={(input) => setUsername(input)}
                                     />
                                 </View>
@@ -196,8 +197,8 @@ const styles = StyleSheet.create({
     },
     content: {
         marginTop: 10,
-        width:370
-     },
+        width: 370
+    },
     text_header: {
         color: '#fff',
         fontWeight: 'bold',
