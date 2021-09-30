@@ -1,41 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
-    TouchableOpacity,
-    TextInput,
     Platform,
     StyleSheet,
-    Dimensions,
     StatusBar,
-    Image,
     TouchableWithoutFeedback,
     Keyboard,
     Button,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import auth from '@react-native-firebase/auth';
+import QRCode from 'react-native-qrcode-svg';
+import firestore from '@react-native-firebase/firestore';
 
 const Home = ({ navigation }) => {
+    const [data, setdata] = useState([])
     const signOut = () => {
         auth().signOut().
             then(() => {
                 navigation.replace('signin')
             })
     }
+
+    useEffect(async () => {
+        const querySanp = await firestore().collection('name').get()
+        const allusers = querySanp.docs.map(docSnap => docSnap.data());
+        const a = allusers;
+        setdata(JSON.stringify(a).toString())
+        console.log(JSON.stringify(a).toString())
+    }, [])
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <View style={styles.header}>
-                        <Text style={[styles.text_header,{paddingVertical: 10 }]}>Trang chủ</Text>
+                        <Text style={[styles.text_header, { paddingVertical: 10 }]}>Trang chủ</Text>
                         <Text style={styles.text_header}>Xin chào,</Text>
                         <Text style={styles.text_header}>{auth().currentUser.displayName}</Text>
                     </View>
                     <Animatable.View
                         style={styles.footer}>
                         <Button title="đăng xuất" onPress={signOut} />
+                        <View>
+                            <QRCode
+                                value={data}
+                            />
+                        </View>
                     </Animatable.View>
                 </View>
             </TouchableWithoutFeedback>

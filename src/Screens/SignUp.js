@@ -57,12 +57,11 @@ const SingUp = ({ navigation, route }) => {
         const checkVerify = setInterval(() => {
             if (showNext) {
                 if (auth().currentUser) {
-                    console.log('đang check')
+                    console.log('Checking')
                     auth().currentUser.reload();
                     if (auth().currentUser.emailVerified) {
-                        console.log('ok dit me may')
-                        navigation.replace('menu')
                         clearInterval(checkVerify)
+                        navigation.replace('menu', { callback })
                     }
                 }
                 return () => {
