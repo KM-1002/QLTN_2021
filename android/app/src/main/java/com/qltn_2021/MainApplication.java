@@ -4,10 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-<<<<<<< HEAD
-import com.reactnativecommunity.rnpermissions.RNPermissionsPackage;
-=======
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
 import com.horcrux.svg.SvgPackage;
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.facebook.react.ReactInstanceManager;
