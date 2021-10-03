@@ -19,10 +19,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
-<<<<<<< HEAD
 import firestore from '@react-native-firebase/firestore';
-=======
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
 
 function VerifyScreen(props) {
     return (<View style={styles.contentVerify}>
@@ -53,47 +50,27 @@ const SingUp = ({ navigation, route }) => {
     const [showNext, setshowNext] = useState(false)
     const [loading, setLoading] = useState(false)
     const { show } = route.params ? route.params : false;
-<<<<<<< HEAD
     useEffect(() => {
         setshowNext(show)
     }, [show])
 
     useEffect(() => {
         const checkVerify = setInterval(() => {
-            if (showNext && auth().currentUser!=null) {
-=======
-
-    useEffect(() => {
-        setshowNext(show)
-    }, [show])
-    useEffect(() => {
-        const checkVerify = setInterval(() => {
-            if (showNext) {
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
+            if (showNext && auth().currentUser != null) {
                 if (auth().currentUser) {
                     console.log('Checking')
                     auth().currentUser.reload();
                     if (auth().currentUser.emailVerified) {
-<<<<<<< HEAD
                         navigation.replace('menu')
                         clearInterval(checkVerify)
-=======
-                        clearInterval(checkVerify)
-                        navigation.replace('menu', { callback })
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
                     }
                 }
                 return () => {
                     clearInterval(checkVerify)
                 }
             }
-<<<<<<< HEAD
         }, 1500);
     }, [showNext, auth().currentUser])
-=======
-        }, 2000);
-    }, [showNext])
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
@@ -119,11 +96,7 @@ const SingUp = ({ navigation, route }) => {
                                 displayName: name,
                             })
                                 .then(async () => {
-<<<<<<< HEAD
                                     await user.sendEmailVerification()
-=======
-                                    await auth().currentUser.sendEmailVerification()
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
                                     setshowNext(true)
                                     setLoading(false)
                                 })
@@ -133,28 +106,16 @@ const SingUp = ({ navigation, route }) => {
                             if (error.code === 'auth/email-already-in-use') {
                                 Alert.alert('Opps, có lỗi xảy ra!', 'Email đã được đăng ký')
                             }
-<<<<<<< HEAD
-=======
-
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
                             if (error.code === 'auth/invalid-email') {
                                 Alert.alert('Opps, có lỗi xảy ra!', 'Địa chỉ email không hợp lệ');
                             }
                             if (error.Code == "auth/network-request-failed") {
                                 Alert.alert('Opps, có lỗi xảy ra!', 'Không có kết nối Internet');
                             }
-<<<<<<< HEAD
-=======
-                            console.error(error);
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
                         });
                 }
                 else {
                     Alert.alert('Opps, có lỗi xảy ra!', 'Mật khẩu nhập lại không khớp');
-<<<<<<< HEAD
-=======
-
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
                 }
             }
             else {
