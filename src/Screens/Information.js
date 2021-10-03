@@ -17,6 +17,7 @@ import {
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import DatePicker from 'react-native-date-picker'
 import { Picker } from '@react-native-picker/picker';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 const Information = ({ navigation }) => {
@@ -39,7 +40,12 @@ const Information = ({ navigation }) => {
                     <View style={styles.header}>
                     </View>
                     <View style={styles.footer}>
-                        <KeyboardAwareScrollView style={styles.footer}>
+                        <View style={styles.content}>
+                        <KeyboardAwareScrollView
+                        extraHeight={120}
+                        enableOnAndroid
+                        showsVerticalScrollIndicator={false}
+                        >
                             <View style={styles.box}>
                                 <Text style={styles.titlebox}>Thông tin cá nhân</Text>
                                 <View>
@@ -50,7 +56,7 @@ const Information = ({ navigation }) => {
                                         onChangeText={(input) => setname(input)}
                                     />
                                 </View>
-                                <View style={{ flex: 1, flexDirection: 'row', marginVertical:3, justifyContent:'center'}}>
+                                <View style={{ flex: 1, flexDirection: 'row', marginVertical: 3, justifyContent: 'center' }}>
                                     <View style={{ flex: 3, }}>
                                         <Text style={styles.texttitle}>Ngày tháng năm sinh (*)</Text>
                                         <TouchableOpacity
@@ -78,25 +84,26 @@ const Information = ({ navigation }) => {
                                             }}
                                         />
                                     </View>
-                                    <View style={{ flex: 2.5, paddingLeft: '5%', justifyContent:'center' }}>
+                                    <View style={{ flex: 2.5, paddingLeft: '5%', justifyContent: 'center',}}>
                                         <Text style={[styles.texttitle]}>Giới tính (*)</Text>
                                         <View
                                             style={{
                                                 borderWidth: 1,
                                                 borderRadius: 5,
-                                                marginTop:7,
+                                                marginTop: 7,
                                                 justifyContent: 'center',
                                             }}
                                         >
                                             <Picker
-                                                style={{ height: 48.125 }}
+                                                style={{ height: 48.125}}
+                                                itemStyle={{backgroundColor: "grey"}}
                                                 mode={'dropdown'}
                                                 selectedValue={sex}
                                                 onValueChange={(itemValue, itemIndex) => setSex(itemValue)}
                                             >
                                                 <Picker.Item style={{ fontSize: 17 }} label="Nam" value="Nam" />
-                                                <Picker.Item label="Nữ" value="Nữ" />
-                                                <Picker.Item label="Khác" value="Khác" />
+                                                <Picker.Item style={{ fontSize: 17 }} label="Nữ" value="Nữ" />
+                                                <Picker.Item style={{ fontSize: 17 }} label="Khác" value="Khác" />
                                             </Picker>
                                         </View>
                                     </View>
@@ -111,9 +118,39 @@ const Information = ({ navigation }) => {
                                         maxLength={10}
                                     />
                                 </View>
-                                
+                                <View>
+                                    <Text style={styles.texttitle}>Sổ hộ chiếu/CMND/CCCD (*)</Text>
+                                    <TextInput
+                                        style={styles.textInput}
+                                        onChangeText={(input) => setsdt(input)}
+                                        maxLength={12}
+                                    />
+                                </View>
+                                <View>
+                                    <Text style={styles.texttitle}>Mã bảo hiểm y tế</Text>
+                                    <View style={styles.boxmbhyt}>
+                                        <TextInput style={styles.textMbhInput}></TextInput>
+                                        <TouchableOpacity
+                                            style={styles.btnQrText}
+                                            onPress={()=>(console.log('opencamera'))}
+                                        >
+                                            <MaterialIcons
+                                                name="qr-code"
+                                                color="#000"
+                                                size={30}
+                                            />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <View>
+                                    
+                                </View>
+                                <View>
+
+                                </View>
                             </View>
                         </KeyboardAwareScrollView>
+                        </View>
                     </View>
                 </View>
             </TouchableWithoutFeedback>
@@ -136,6 +173,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 10,
         marginTop: 5,
+    },
+    content:{
+        marginTop: 10,
+        paddingHorizontal: 10,
     },
     text_header: {
         color: '#fff',
@@ -166,12 +207,27 @@ const styles = StyleSheet.create({
     },
     textTimeInput: {
         height: 50,
-        marginTop:7,
+        marginTop: 7,
         paddingLeft: 15,
         borderWidth: 1,
         borderRadius: 5,
         fontSize: 17,
         textAlignVertical: "center"
+    },
+    boxmbhyt: {
+        borderWidth: 1,
+        flexDirection: 'row',
+        borderRadius: 5,
+        marginTop: 5,
+    },
+    textMbhInput: {
+        flex:1,
+        paddingLeft: 15,
+        fontSize: 16,
+    },
+    btnQrText: {
+        justifyContent: 'center',
+        padding:5,
     }
-
+    
 });
