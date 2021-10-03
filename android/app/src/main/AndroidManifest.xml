@@ -2,14 +2,11 @@
   package="com.qltn_2021">
 
     <uses-permission android:name="android.permission.INTERNET" />
-<<<<<<< HEAD
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE"/>
-=======
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
 
     <application
       android:name=".MainApplication"
