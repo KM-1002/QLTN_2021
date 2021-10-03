@@ -2,13 +2,9 @@ import React, { useState } from 'react';
 import {
     View,
     Text,
-    TouchableOpacity,
-    TextInput,
     Platform,
     StyleSheet,
-    Dimensions,
     StatusBar,
-    Image,
     TouchableWithoutFeedback,
     Keyboard,
 } from 'react-native';
