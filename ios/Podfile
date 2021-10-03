@@ -16,8 +16,11 @@ target 'QLTN_2021' do
 
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
+<<<<<<< HEAD
   pod 'RNPermissions', :path => '../node_modules/react-native-permissions'
 
+=======
+>>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
   target 'QLTN_2021Tests' do
     inherit! :complete
     # Pods for testing

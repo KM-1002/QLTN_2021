@@ -18,14 +18,22 @@ LogBox.ignoreAllLogs();
 const SplashScreen = ({ navigation }) => {
     const { colors } = useTheme();
     useEffect(() => {
+<<<<<<< HEAD
         const delay = setTimeout(() => {
+=======
+        setTimeout(() => {
+>>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
             const subscriber = auth().onAuthStateChanged(
                 function onAuthStateChanged(user) {
                     const timeRequest = setInterval(() => {
                         if (user) { auth().currentUser.reload(); user.reload() };
                         if (user && user.emailVerified) {
                             navigation.replace('menu')
+<<<<<<< HEAD
                             clearInterval(timeRequest)
+=======
+                            clearInterval(timeRequest)  
+>>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
                         }
                         else if (user && !user.emailVerified) {
                             console.log('chưa xác minh email')
@@ -38,6 +46,7 @@ const SplashScreen = ({ navigation }) => {
                             console.log(user)
                         }
                     }, 1000);
+<<<<<<< HEAD
                     return () => {
                         clearInterval(timeRequest)
                     }
@@ -49,6 +58,11 @@ const SplashScreen = ({ navigation }) => {
         return () => {
             clearTimeout(delay)
         }
+=======
+                });
+            return subscriber; // unsubscribe on unmount
+        }, 1000);
+>>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
     }, []);
 
     return (

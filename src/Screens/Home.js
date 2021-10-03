@@ -13,14 +13,20 @@ import * as Animatable from 'react-native-animatable';
 import auth from '@react-native-firebase/auth';
 import QRCode from 'react-native-qrcode-svg';
 import firestore from '@react-native-firebase/firestore';
+<<<<<<< HEAD
 import { addUser } from '../Components/FormSub';
 
 const Home = ({ navigation }) => {
     const user = auth().currentUser;
+=======
+
+const Home = ({ navigation }) => {
+>>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
     const [data, setdata] = useState([])
     const signOut = () => {
         auth().signOut().
             then(() => {
+<<<<<<< HEAD
             })
     }
 
@@ -31,6 +37,19 @@ const Home = ({ navigation }) => {
     const ScanQR = () => {
         navigation.navigate('qrscan')
     }
+=======
+                navigation.replace('signin')
+            })
+    }
+
+    useEffect(async () => {
+        const querySanp = await firestore().collection('name').get()
+        const allusers = querySanp.docs.map(docSnap => docSnap.data());
+        const a = allusers;
+        setdata(JSON.stringify(a).toString())
+        console.log(JSON.stringify(a).toString())
+    }, [])
+>>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
@@ -49,7 +68,10 @@ const Home = ({ navigation }) => {
                                 value={data}
                             />
                         </View>
+<<<<<<< HEAD
                         <Button title="Quét QR" onPress={ScanQR} />
+=======
+>>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
                     </Animatable.View>
                 </View>
             </TouchableWithoutFeedback>

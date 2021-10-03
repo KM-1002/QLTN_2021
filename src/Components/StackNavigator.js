@@ -5,7 +5,10 @@ import SignIn from '../Screens/SignIn';
 import SignUp from '../Screens/SignUp';
 import ForgotPass from '../Screens/ForgotPass';
 import TabNavigator from './TabNavigator';
+<<<<<<< HEAD
 import qrScanner from '../Screens/qrScanner';
+=======
+>>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
 
 const Stack = createNativeStackNavigator();
 
@@ -57,6 +60,7 @@ const StackNavigator = () => {
                     headerShown: false,
                 }}
             />
+<<<<<<< HEAD
              <Stack.Screen
                 name="qrscan"
                 component={qrScanner}
@@ -64,6 +68,8 @@ const StackNavigator = () => {
                     headerShown: false,
                 }}
             />
+=======
+>>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
         </Stack.Navigator>
     );
 }
