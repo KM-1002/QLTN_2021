@@ -132,10 +132,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
-<<<<<<< HEAD
         missingDimensionStrategy 'react-native-camera', 'general'
-=======
->>>>>>> 5063d505bdc132bc772749ebfca4f17ca1e0c5aa
     }
     splits {
         abi {
