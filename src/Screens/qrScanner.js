@@ -3,16 +3,7 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TextInput,
-    Platform,
     StyleSheet,
-    StatusBar,
-    Dimensions,
-    SafeAreaView,
-    TouchableWithoutFeedback,
-    Keyboard,
-    Alert,
-    Linking
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 

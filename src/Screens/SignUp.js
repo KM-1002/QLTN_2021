@@ -50,10 +50,10 @@ const SingUp = ({ navigation, route }) => {
     const [showNext, setshowNext] = useState(false)
     const [loading, setLoading] = useState(false)
     const { show } = route.params ? route.params : false;
-    useEffect(() => {
+    useEffect(async () => {
         setshowNext(show)
+        if (show && auth().currentUser != null) await auth().currentUser.sendEmailVerification()
     }, [show])
-
     useEffect(() => {
         const checkVerify = setInterval(() => {
             if (showNext && auth().currentUser != null) {
@@ -95,8 +95,7 @@ const SingUp = ({ navigation, route }) => {
                             user.updateProfile({
                                 displayName: name,
                             })
-                                .then(async () => {
-                                    await user.sendEmailVerification()
+                                .then(() => {
                                     setshowNext(true)
                                     setLoading(false)
                                 })
