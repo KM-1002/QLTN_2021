@@ -19,10 +19,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
-<<<<<<< HEAD
 import firestore from '@react-native-firebase/firestore';
-=======
->>>>>>> 533b46863503935ebe0c9a967e1c6f2cebdd250d
 
 function VerifyScreen(props) {
     return (<View style={styles.contentVerify}>
@@ -53,7 +50,6 @@ const SingUp = ({ navigation, route }) => {
     const [showNext, setshowNext] = useState(false)
     const [loading, setLoading] = useState(false)
     const { show } = route.params ? route.params : false;
-<<<<<<< HEAD
     useEffect(async () => {
         setshowNext(show)
         if (show && auth().currentUser != null) await auth().currentUser.sendEmailVerification()
@@ -61,39 +57,20 @@ const SingUp = ({ navigation, route }) => {
     useEffect(() => {
         const checkVerify = setInterval(() => {
             if (showNext && auth().currentUser != null) {
-=======
-
-    useEffect(() => {
-        setshowNext(show)
-    }, [show])
-    useEffect(() => {
-        const checkVerify = setInterval(() => {
-            if (showNext) {
->>>>>>> 533b46863503935ebe0c9a967e1c6f2cebdd250d
                 if (auth().currentUser) {
                     console.log('Checking')
                     auth().currentUser.reload();
                     if (auth().currentUser.emailVerified) {
-<<<<<<< HEAD
                         navigation.replace('menu')
                         clearInterval(checkVerify)
-=======
-                        clearInterval(checkVerify)
-                        navigation.replace('menu', { callback })
->>>>>>> 533b46863503935ebe0c9a967e1c6f2cebdd250d
                     }
                 }
                 return () => {
                     clearInterval(checkVerify)
                 }
             }
-<<<<<<< HEAD
         }, 1500);
     }, [showNext, auth().currentUser])
-=======
-        }, 2000);
-    }, [showNext])
->>>>>>> 533b46863503935ebe0c9a967e1c6f2cebdd250d
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
@@ -118,12 +95,7 @@ const SingUp = ({ navigation, route }) => {
                             user.updateProfile({
                                 displayName: name,
                             })
-<<<<<<< HEAD
                                 .then(() => {
-=======
-                                .then(async () => {
-                                    await auth().currentUser.sendEmailVerification()
->>>>>>> 533b46863503935ebe0c9a967e1c6f2cebdd250d
                                     setshowNext(true)
                                     setLoading(false)
                                 })
@@ -139,10 +111,6 @@ const SingUp = ({ navigation, route }) => {
                             if (error.Code == "auth/network-request-failed") {
                                 Alert.alert('Opps, có lỗi xảy ra!', 'Không có kết nối Internet');
                             }
-<<<<<<< HEAD
-=======
-                            console.error(error);
->>>>>>> 533b46863503935ebe0c9a967e1c6f2cebdd250d
                         });
                 }
                 else {
