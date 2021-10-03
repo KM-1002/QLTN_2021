@@ -6,13 +6,9 @@ import {
     TextInput,
     Platform,
     StyleSheet,
-    Dimensions,
     StatusBar,
-    Image,
     TouchableWithoutFeedback,
     Keyboard,
-    TouchableHighlight,
-    Alert,
 } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import DatePicker from 'react-native-date-picker'
