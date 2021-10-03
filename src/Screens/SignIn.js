@@ -43,7 +43,7 @@ const SignIn = ({ navigation }) => {
                     if (errorCode == "auth/network-request-failed") {
                         Alert.alert('Opps!', 'Không có kết nối Internet');
                     }
-                    Alert.alert('Opps!','Email hoặc mật khẩu không đúng');
+                    Alert.alert('Opps!', 'Email hoặc mật khẩu không đúng');
                     console.log(errorCode)
                 });
         }
@@ -51,7 +51,6 @@ const SignIn = ({ navigation }) => {
             Alert.alert('Opps!', 'Vui lòng nhập đầy đủ thông tin');
         }
     }
-
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' Style="light-content" />
