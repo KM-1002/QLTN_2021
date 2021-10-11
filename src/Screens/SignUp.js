@@ -20,6 +20,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
+import { addUser } from '../Components/FormSub';
 
 function VerifyScreen(props) {
     return (<View style={styles.contentVerify}>
@@ -55,12 +56,14 @@ const SingUp = ({ navigation, route }) => {
         if (show && auth().currentUser != null) await auth().currentUser.sendEmailVerification()
     }, [show])
     useEffect(() => {
-        const checkVerify = setInterval(() => {
+        const checkVerify = setInterval(async () => {
             if (showNext && auth().currentUser != null) {
                 if (auth().currentUser) {
                     console.log('Checking')
                     auth().currentUser.reload();
                     if (auth().currentUser.emailVerified) {
+                        let user = auth().currentUser;
+                        await addUser(user.uid, user.displayName, user.email)
                         navigation.replace('menu')
                         clearInterval(checkVerify)
                     }

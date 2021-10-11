@@ -24,7 +24,6 @@ const Home = ({ navigation }) => {
 
     useEffect(() => {
         setdata(user.uid)
-        addUser(user.uid, user.displayName, user.email)
     }, [])
     const ScanQR = () => {
         navigation.navigate('qrscan')
