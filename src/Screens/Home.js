@@ -19,9 +19,7 @@ const Home = ({ navigation }) => {
     const user = auth().currentUser;
     const [data, setdata] = useState([])
     const signOut = () => {
-        auth().signOut().
-            then(() => {
-            })
+        auth().signOut()
     }
 
     useEffect(() => {

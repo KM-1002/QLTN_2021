@@ -7,14 +7,29 @@ import {
 } from 'react-native';
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
-const qrScanner = () => {
+const qrScanner = ({ navigation, route }) => {
+    const { option } = route?.params;
     const onSuccess = e => {
-      console.log(e.data)
+        switch (option) {
+            case "bhyt": {
+                let a = e.data;
+                let b = a.split('|');
+                navigation.navigate('infor', {
+                    mathe: b[0],
+                    namsinh: b[2]
+                })
+                break;
+            }
+            default: {
+                alert('Lỗi không xác định')
+            }
+        }
     };
     return (
         <View style={{ flex: 1 }}>
             <QRCodeScanner
-            containerStyle={{alignItems:'center'}}
+                containerStyle={{ alignItems: 'center' }}
+                showMarker={true}
                 checkAndroid6Permissions={true}
                 cameraStyle={{ width: 350, height: 350 }}
                 onRead={onSuccess}
