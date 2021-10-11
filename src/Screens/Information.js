@@ -9,6 +9,7 @@ import {
     StatusBar,
     TouchableWithoutFeedback,
     Keyboard,
+    SafeAreaView
 } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import DatePicker from 'react-native-date-picker'
@@ -19,24 +20,49 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 const Information = ({ navigation, route }) => {
     const [name, setname] = useState('')
     const [sex, setSex] = useState('')
-    const [date, setdate] = useState(new Date(Date.now()))
+    const [date, setdate] = useState(new Date('2021/10/11'))
     const [sdt, setsdt] = useState('')
     const [isPickerShow, setIsPickerShow] = useState(false);
+    const [cmnd, setcmnd] = useState('')
+    const [chieucao, setchieucao] = useState(Number);
+    const [cannang, setcannang] = useState(Number);
+    const [mabaohiem, setMabaohiem] = useState()
+    const [nhommau, setnhommau] = useState('');
     const { mathe, namsinh } = route.params ? route.params : '';
     useEffect(() => {
-        console.log(mathe)
-        console.log(namsinh)
+        if (mathe, namsinh) {
+            setMabaohiem(mathe)
+            let d = namsinh.split('/');
+            let e = d[2] + '/' + d[1] + '/' + d[0];
+            setdate(new Date(e))
+        }
         return () => {
         }
-    }, [mathe])
+    }, [mathe, namsinh])
+    const BMI = () => {
+        if (chieucao > 0 && cannang > 0) {
+            return (cannang / ((chieucao / 100) * (chieucao / 100))).toFixed(1);
+        }
+    };
     const showPicker = () => {
         setIsPickerShow(true);
     }
     const hideDatePicker = () => {
         setIsPickerShow(false);
     }
+    const onChangeTextCC = (text) => {
+        if (Number.isInteger(+text)) {
+            setchieucao(text)
+        }
+    }
+    const onChangeTextCN = (text) => {
+        if (Number.isInteger(+text)) {
+            setcannang(text)
+        }
+    }
+
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
@@ -55,7 +81,7 @@ const Information = ({ navigation, route }) => {
                                         <Text style={styles.texttitle}>Họ và tên (*)</Text>
                                         <TextInput
                                             style={styles.textInput}
-                                            placeholder={'Nhập họ và tên...'}
+                                            placeholder={'Họ và tên...'}
                                             onChangeText={(input) => setname(input)}
                                         />
                                     </View>
@@ -73,7 +99,7 @@ const Information = ({ navigation, route }) => {
                                                 locale='vi'
                                                 maximumDate={new Date(Date.now())}
                                                 androidVariant='nativeAndroid'
-                                                title="Nhập ngày tháng năm sinh"
+                                                title="Ngày tháng năm sinh"
                                                 confirmText="Xác nhận"
                                                 cancelText="Huỷ bỏ"
                                                 open={isPickerShow}
@@ -81,7 +107,6 @@ const Information = ({ navigation, route }) => {
                                                 onConfirm={(date) => {
                                                     hideDatePicker()
                                                     setdate(date)
-                                                    console.log(date)
                                                 }}
                                                 onCancel={() => {
                                                     hideDatePicker()
@@ -99,15 +124,14 @@ const Information = ({ navigation, route }) => {
                                                 }}
                                             >
                                                 <Picker
-                                                    style={{ height: 48.125 }}
-                                                    itemStyle={{ backgroundColor: "grey" }}
+                                                    style={{ height: 48.125, }}
                                                     mode={'dropdown'}
                                                     selectedValue={sex}
                                                     onValueChange={(itemValue, itemIndex) => setSex(itemValue)}
                                                 >
                                                     <Picker.Item style={{ fontSize: 17 }} label="Nam" value="Nam" />
-                                                    <Picker.Item style={{ fontSize: 17 }} label="Nữ" value="Nữ" />
-                                                    <Picker.Item style={{ fontSize: 17 }} label="Khác" value="Khác" />
+                                                    <Picker.Item style={{ fontSize: 17, borderBottomWidth: 1 }} label="Nữ" value="Nữ" />
+                                                    <Picker.Item style={{ fontSize: 17, borderBottomWidth: 1 }} label="Khác" value="Khác" />
                                                 </Picker>
                                             </View>
                                         </View>
@@ -116,7 +140,7 @@ const Information = ({ navigation, route }) => {
                                         <Text style={styles.texttitle}>Số điện thoại (*)</Text>
                                         <TextInput
                                             style={styles.textInput}
-                                            placeholder={'Nhập số điện thoại...'}
+                                            placeholder={'Số điện thoại...'}
                                             keyboardType={'phone-pad'}
                                             onChangeText={(input) => setsdt(input)}
                                             maxLength={10}
@@ -126,17 +150,19 @@ const Information = ({ navigation, route }) => {
                                         <Text style={styles.texttitle}>Sổ hộ chiếu/CMND/CCCD (*)</Text>
                                         <TextInput
                                             style={styles.textInput}
-                                            onChangeText={(input) => setsdt(input)}
+                                            onChangeText={(input) => setcmnd(input)}
                                             maxLength={12}
                                         />
                                     </View>
                                     <View>
-                                        <Text style={styles.texttitle}>Mã bảo hiểm y tế</Text>
+                                        <Text style={styles.texttitle} >Mã bảo hiểm y tế</Text>
                                         <View style={styles.boxmbhyt}>
-                                            <TextInput style={styles.textMbhInput}></TextInput>
+                                            <TextInput style={styles.textMbhInput} onChangeText={(input) => { setMabaohiem(input) }}>{mabaohiem ? mabaohiem : ''}</TextInput>
                                             <TouchableOpacity
                                                 style={styles.btnQrText}
-                                                onPress={() => navigation.navigate('qrscan', { option: 'bhyt' })}
+                                                onPress={() => navigation.navigate('qrscan', {
+                                                    option: 'bhyt'
+                                                })}
                                             >
                                                 <MaterialIcons
                                                     name="qr-code"
@@ -146,11 +172,99 @@ const Information = ({ navigation, route }) => {
                                             </TouchableOpacity>
                                         </View>
                                     </View>
-                                    <View>
-
-                                    </View>
-                                    <View>
-
+                                    <View style={styles.box}>
+                                        <Text style={[styles.titlebox, { marginTop: '5%' }]}>Sức khoẻ</Text>
+                                        <View>
+                                            <Text style={[styles.texttitle, { paddingBottom: '2%', }]}>Chỉ số sức khoẻ BMI</Text>
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <View style={styles.boxBMI}>
+                                                    <TextInput
+                                                        style={{ paddingLeft: 10, fontSize: 16 }}
+                                                        keyboardType='number-pad'
+                                                        placeholder={'Chiều cao cm'}
+                                                        maxLength={4}
+                                                        value={Text}
+                                                        onChangeText={onChangeTextCC}
+                                                    />
+                                                </View>
+                                                <View style={[styles.boxBMI, { marginHorizontal: '4%' }]}>
+                                                    <TextInput
+                                                        style={{ paddingLeft: 10, fontSize: 16 }}
+                                                        keyboardType='number-pad'
+                                                        placeholder={'Cân nặng kg'}
+                                                        maxLength={5}
+                                                        value={Text}
+                                                        onChangeText={onChangeTextCN}
+                                                    />
+                                                </View>
+                                                <View style={[styles.boxBMI, { flex: 1.25 }]}>
+                                                    {
+                                                        BMI() ?
+                                                            <View style={{ flex: 1, justifyContent: 'center', paddingLeft: 10 }}>
+                                                                <Text style={{ fontSize: 16 }}>{BMI()}</Text>
+                                                            </View>
+                                                            :
+                                                            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                                                <Text style={{ fontSize: 16, color: '#A0A0A0' }}>Chỉ số BMI</Text>
+                                                            </View>
+                                                    }
+                                                </View>
+                                            </View>
+                                        </View>
+                                        <View>
+                                            <Text style={[styles.texttitle, { paddingBottom: '2%' }]}>Nhóm máu ABO</Text>
+                                            <View
+                                                style={{
+                                                    borderWidth: 1,
+                                                    borderRadius: 5,
+                                                    justifyContent: 'center',
+                                                }}
+                                            >
+                                                <Picker
+                                                    style={{ height: 48.125 }}
+                                                    itemStyle={{ borderWidth: 1, }}
+                                                    mode={'dropdown'}
+                                                    selectedValue={nhommau}
+                                                    onValueChange={(itemValue, itemIndex) => setnhommau(itemValue)}
+                                                >
+                                                    <Picker.Item style={{ fontSize: 17 }} label="Không xác định" value="Không xác định" />
+                                                    <Picker.Item style={{ fontSize: 17 }} label="O" value="O" />
+                                                    <Picker.Item style={{ fontSize: 17 }} label="AB" value="AB" />
+                                                    <Picker.Item style={{ fontSize: 17 }} label="A" value="A" />
+                                                    <Picker.Item style={{ fontSize: 17 }} label="B" value="B" />
+                                                </Picker>
+                                            </View>
+                                            <View>
+                                                <Text style={[styles.texttitle, { paddingBottom: '2%', }]}>Nhóm máu Rh</Text>
+                                                <View
+                                                    style={{
+                                                        borderWidth: 1,
+                                                        borderRadius: 5,
+                                                        justifyContent: 'center',
+                                                    }}
+                                                >
+                                                    <Picker
+                                                        style={{ height: 48.125 }}
+                                                        itemStyle={{ backgroundColor: "grey" }}
+                                                        mode={'dropdown'}
+                                                        selectedValue={nhommau}
+                                                        onValueChange={(itemValue, itemIndex) => setnhommau(itemValue)}
+                                                    >
+                                                        <Picker.Item style={{ fontSize: 17 }} label="Không xác định" value="Không xác định" />
+                                                        <Picker.Item style={{ fontSize: 17 }} label="Rh+" value="Rh+" />
+                                                        <Picker.Item style={{ fontSize: 17 }} label="Rh-" value="Rh-" />
+                                                    </Picker>
+                                                </View>
+                                            </View>
+                                            <View>
+                                                <Text style={styles.texttitle}>Tiền sử bệnh</Text>
+                                                <TextInput
+                                                    style={[styles.textInput, { textAlignVertical: 'top' }]}
+                                                    placeholder={"Tiền sử bệnh"}
+                                                    numberOfLines={5}
+                                                />
+                                            </View>
+                                        </View>
                                     </View>
                                 </View>
                             </KeyboardAwareScrollView>
@@ -158,7 +272,7 @@ const Information = ({ navigation, route }) => {
                     </View>
                 </View>
             </TouchableWithoutFeedback>
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -231,7 +345,14 @@ const styles = StyleSheet.create({
     },
     btnQrText: {
         justifyContent: 'center',
+        alignItems: 'center',
         padding: 5,
+    },
+    boxBMI: {
+        flex: 1.5,
+        borderRadius: 5,
+        borderWidth: 1,
     }
+
 
 });

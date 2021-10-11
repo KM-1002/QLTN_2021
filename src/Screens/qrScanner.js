@@ -8,12 +8,13 @@ import {
 import QRCodeScanner from 'react-native-qrcode-scanner';
 
 const qrScanner = ({ navigation, route }) => {
-    const { option } = route?.params;
+    const { option } = route?.params;;
     const onSuccess = e => {
         switch (option) {
             case "bhyt": {
                 let a = e.data;
                 let b = a.split('|');
+                console.log(b);
                 navigation.navigate('infor', {
                     mathe: b[0],
                     namsinh: b[2]
