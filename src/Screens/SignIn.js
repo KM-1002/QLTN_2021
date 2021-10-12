@@ -27,6 +27,7 @@ const SignIn = ({ navigation }) => {
     const [password, setPassword] = useState('')
     const [check_textInputChange, setcheck_textInputChange] = useState(false)
     const [loading, setLoading] = useState(false)
+    
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry

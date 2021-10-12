@@ -82,6 +82,7 @@ const Information = ({ navigation, route }) => {
                                         <TextInput
                                             style={styles.textInput}
                                             placeholder={'Họ và tên...'}
+                                            value={name}
                                             onChangeText={(input) => setname(input)}
                                         />
                                     </View>
@@ -142,14 +143,16 @@ const Information = ({ navigation, route }) => {
                                             style={styles.textInput}
                                             placeholder={'Số điện thoại...'}
                                             keyboardType={'phone-pad'}
+                                            value={sdt}
                                             onChangeText={(input) => setsdt(input)}
-                                            maxLength={10}
+                                            maxLength={12}
                                         />
                                     </View>
                                     <View>
                                         <Text style={styles.texttitle}>Sổ hộ chiếu/CMND/CCCD (*)</Text>
                                         <TextInput
                                             style={styles.textInput}
+                                            value={cmnd}
                                             onChangeText={(input) => setcmnd(input)}
                                             maxLength={12}
                                         />
@@ -182,8 +185,8 @@ const Information = ({ navigation, route }) => {
                                                         style={{ paddingLeft: 10, fontSize: 16 }}
                                                         keyboardType='number-pad'
                                                         placeholder={'Chiều cao cm'}
-                                                        maxLength={4}
-                                                        value={Text}
+                                                        maxLength={5}
+                                                        value={chieucao}
                                                         onChangeText={onChangeTextCC}
                                                     />
                                                 </View>
@@ -193,7 +196,7 @@ const Information = ({ navigation, route }) => {
                                                         keyboardType='number-pad'
                                                         placeholder={'Cân nặng kg'}
                                                         maxLength={5}
-                                                        value={Text}
+                                                        // value={Text}
                                                         onChangeText={onChangeTextCN}
                                                     />
                                                 </View>

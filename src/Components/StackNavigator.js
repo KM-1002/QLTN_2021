@@ -6,6 +6,7 @@ import SignUp from '../Screens/SignUp';
 import ForgotPass from '../Screens/ForgotPass';
 import TabNavigator from './TabNavigator';
 import qrScanner from '../Screens/qrScanner';
+import Information from "../Screens/Information"
 
 const Stack = createNativeStackNavigator();
 
@@ -57,11 +58,18 @@ const StackNavigator = () => {
                     headerShown: false,
                 }}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name="qrscan"
                 component={qrScanner}
                 options={{
                     headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name="infor"
+                component={Information}
+                options={{
+                    title: 'Cập nhật thông tin',
                 }}
             />
         </Stack.Navigator>
