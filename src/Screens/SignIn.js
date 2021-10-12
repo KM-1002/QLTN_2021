@@ -12,6 +12,7 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     Alert,
+    ActivityIndicator
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -25,7 +26,7 @@ const SignIn = ({ navigation }) => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [check_textInputChange, setcheck_textInputChange] = useState(false)
-
+    const [loading, setLoading] = useState(false)
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
@@ -34,7 +35,11 @@ const SignIn = ({ navigation }) => {
 
     const checkSignin = () => {
         if (username && password) {
+            setLoading(true)
             auth().signInWithEmailAndPassword(username, password)
+                .then(() => {
+                    setLoading(false)
+                })
                 .catch((error) => {
                     var errorCode = error.code;
                     if (errorCode == "auth/user-disabled") {
@@ -56,6 +61,11 @@ const SignIn = ({ navigation }) => {
             <StatusBar backgroundColor='#00cfcb' Style="light-content" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
+                    {loading ?
+                        <View style={styles.styleLoading}>
+                            <ActivityIndicator size="large" color="#0000ff" />
+                        </View>
+                        : null}
                     <View style={styles.header}>
                         <Animatable.Image
                             animation="fadeInDown"
@@ -242,5 +252,17 @@ const styles = StyleSheet.create({
     textSign: {
         fontSize: 18,
         fontWeight: 'bold'
+    },
+    styleLoading: {
+        position: "absolute",
+        zIndex: 1,
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "#F5FCFF88",
+        paddingBottom: '30%'
     }
 });
