@@ -11,14 +11,13 @@ const TabNavigator = () => {
         <Tab.Navigator
             initialRouteName="home"
             screenOptions={{
-                headerMode: 'screen',
                 headerTintColor: 'white',
                 headerStyle: {
                     backgroundColor: '#00cfcb',
                 },
                 headerShadowVisible: false,
                 title: 'Centered',
-                headerTitleAlign: 'center'
+                headerTitleAlign: 'center',    
             }}
         >
             <Tab.Screen
