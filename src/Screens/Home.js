@@ -8,7 +8,8 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     Button,
-    Image
+    Image,
+    ScrollView
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import auth from '@react-native-firebase/auth';
@@ -31,32 +32,31 @@ const Home = ({ navigation }) => {
     }
     return (
         <View style={styles.container}>
-            <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.container}>
-                    <View style={styles.header}>
-                        <View style={styles.userDisplay}>
-                            <View style={{ height: 80, width: 80, borderRadius: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
-                                <AvatarView size={65} viewPress={()=>navigation.navigate('infor')} />
-                            </View>
-                            <View style={{ paddingLeft: 15 }}>
-                                <Text style={{ fontSize: 20, color: 'white' }}>Xin chào,</Text>
-                                <Text style={styles.text_header}>{auth().currentUser.displayName}</Text>
+                <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.container}>
+                        <View style={styles.header}>
+                            <View style={styles.userDisplay}>
+                                <View style={{ height: 80, width: 80, borderRadius: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
+                                    <AvatarView size={65} viewPress={() => navigation.navigate('infor')} />
+                                </View>
+                                <View style={{ paddingLeft: 15 }}>
+                                    <Text style={{ fontSize: 20, color: 'white' }}>Xin chào,</Text>
+                                    <Text style={styles.text_header}>{auth().currentUser.displayName}</Text>
+                                </View>
                             </View>
                         </View>
+                        <Animatable.View
+                            style={styles.footer}>
+                            <Button title="đăng xuất" onPress={signOut} />
+                            <View>
+                                <QRCode
+                                    value={data}
+                                />
+                            </View>
+                        </Animatable.View>
                     </View>
-                    <Animatable.View
-                        style={styles.footer}>
-                        <Button title="đăng xuất" onPress={signOut} />
-                        <View>
-                            <QRCode
-                                value={data}
-                            />
-                        </View>
-                        <Button title="Quét QR" onPress={ScanQR} />
-                    </Animatable.View>
-                </View>
-            </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>
         </View>
     );
 };
@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#00cfcb'
     },
     header: {
-        flex: 1/1.5,
+        flex: 1 / 1.5,
         paddingHorizontal: 15,
         paddingBottom: 5,
-        justifyContent:'center'
+        justifyContent: 'center'
     },
     footer: {
         flex: Platform.OS === 'ios' ? 3 : 3,
@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 30,
-        paddingTop:10
+        paddingTop: 10
     },
     text_footer: {
         color: '#05375a',

@@ -20,7 +20,8 @@ const StackNavigator = () => {
                 headerStyle: {
                     backgroundColor: '#00cfcb',
                 },
-                headerShadowVisible: false
+                headerShadowVisible: false,
+                gestureEnabled:true
             }}
         >
             <Stack.Screen

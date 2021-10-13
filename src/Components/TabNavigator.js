@@ -35,13 +35,6 @@ const TabNavigator = () => {
                     headerShown: false,
                 }}
             />
-            <Tab.Screen
-                name="infor"
-                component={Information}
-                options={{
-                    title: 'Cập nhật thông tin',
-                }}
-            />
         </Tab.Navigator>
     )
 }
