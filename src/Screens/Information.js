@@ -169,26 +169,52 @@ const Information = ({ navigation, route }) => {
                                     </View>
                                 </View>
                                 <View style={{ flexDirection: 'row', }}>
-                                    <View style={{ flex: 3, }}>
+                                    <View style={{ flex: 2, }}>
                                         <Text style={styles.texttitle}>Giá trị sử dụng từ ngày</Text>
                                         <TouchableOpacity
-                                            onPress={() => setpickerbd(true)}
+                                            onPress={() => setOpen(true)}
                                         >
-                                            <Text style={styles.textTimeInput}>{datebd.getDate() + '/' + (datebd.getMonth() + 1) + '/' + datebd.getFullYear()}</Text>
+                                            <Text style={styles.textTimeInput}></Text>
                                         </TouchableOpacity>
                                         <DatePicker
                                             modal
                                             mode='date'
                                             locale='vi'
+                                            maximumDate={new Date(Date.now())}
                                             androidVariant='nativeAndroid'
-                                            title="Ngày bắt đầu"
+                                            title="Ngày tháng năm sinh"
+                                            confirmText="Xác nhận"
+                                            cancelText="Huỷ bỏ"
+                                            open={open}
+                                            date={date}
+                                            onConfirm={(date) => {
+                                                setOpen(false)
+                                                setDatebd(date)
+                                            }}
+                                            onCancel={() => {
+                                                setOpen(false)
+                                            }}
+                                        />
+                                    </View>
+                                    <View style={{ flex: 2,paddingLeft:20 }}>
+                                        <Text style={styles.texttitle}>Đến ngày</Text>
+                                        <TouchableOpacity
+                                            onPress={() => setpickerbd(true)}
+                                        >
+                                            <Text style={styles.textTimeInput}></Text>
+                                        </TouchableOpacity>
+                                        <DatePicker
+                                            modal
+                                            mode='date'
+                                            locale='vi'
+                                            maximumDate={new Date(Date.now())}
+                                            androidVariant='nativeAndroid'
+                                            title="Ngày tháng năm sinh"
                                             confirmText="Xác nhận"
                                             cancelText="Huỷ bỏ"
                                             open={pickerbd}
                                             date={datebd}
                                             onConfirm={(datebd) => {
-                                                console.log(datebd)
-                                                console.log(date)
                                                 setpickerbd(false)
                                                 setDatebd(datebd)
                                             }}
@@ -209,7 +235,6 @@ const Information = ({ navigation, route }) => {
                                                     keyboardType='number-pad'
                                                     placeholder={'Chiều cao cm'}
                                                     maxLength={4}
-                                                    value={Text}
                                                     onChangeText={onChangeTextCC}
                                                 />
                                             </View>
@@ -219,7 +244,6 @@ const Information = ({ navigation, route }) => {
                                                     keyboardType='number-pad'
                                                     placeholder={'Cân nặng kg'}
                                                     maxLength={5}
-                                                    value={Text}
                                                     onChangeText={onChangeTextCN}
                                                 />
                                             </View>
@@ -316,7 +340,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 10,
         marginTop: 5,
-        paddingLeft:15,
+        paddingLeft: 15,
     },
     content: {
         marginTop: 10,
