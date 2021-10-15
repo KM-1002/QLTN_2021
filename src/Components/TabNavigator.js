@@ -1,10 +1,11 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Home from "../Screens/Home";
 import News from "../Screens/News";
 import Information from "../Screens/Information"
-
-const Tab = createBottomTabNavigator();
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Icon1 from  'react-native-vector-icons/AntDesign';
+const Tab = createMaterialTopTabNavigator();
 
 const TabNavigator = () => {
     return (
@@ -17,14 +18,27 @@ const TabNavigator = () => {
                 },
                 headerShadowVisible: false,
                 title: 'Centered',
-                headerTitleAlign: 'center',    
+                headerTitleAlign: 'center',
+                tabBarActiveTintColor: 'red',
+                tabBarInactiveTintColor: 'black',
+                tabBarIndicatorStyle: {
+                    width: 0, height: 0, elevation: 0,
+                },
+                tabBarStyle: { borderTopColor: 'black', borderTopWidth: 2 },
+                tabBarLabelStyle: { fontSize: 12 },
+
             }}
+            tabBarPosition='bottom'
         >
             <Tab.Screen
                 name="home"
                 component={Home}
                 options={{
                     headerShown: false,
+                    tabBarLabel: 'Trang chủ',
+                    tabBarIcon: ({ color }) => (
+                        <Icon name="home" size={22} color={color} />
+                    ),
                 }}
             />
             <Tab.Screen
@@ -32,6 +46,26 @@ const TabNavigator = () => {
                 component={News}
                 options={{
                     headerShown: false,
+                    tabBarLabel: 'Tin tức',
+                    tabBarIcon: ({ color }) => (
+                        <Icon1 name="calendar" size={22} color={color} />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="lichhen"
+                component={News}
+                options={{
+                    headerShown: false,
+                    tabBarLabel: 'Lịch hẹn'
+                }}
+            />
+            <Tab.Screen
+                name="canhan"
+                component={News}
+                options={{
+                    headerShown: false,
+                    tabBarLabel: 'Cá nhân'
                 }}
             />
         </Tab.Navigator>
