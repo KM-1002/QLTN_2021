@@ -24,7 +24,7 @@ const StackNavigator = () => {
                         backgroundColor: '#00cfcb',
                     },
                     headerShadowVisible: false,
-                    // gestureDirection:'horizontal',
+                    gestureDirection: 'horizontal',
                 }}
             >
                 <Stack.Screen
@@ -75,7 +75,6 @@ const StackNavigator = () => {
                     options={{
                         title: 'Cập nhật thông tin',
                         gestureEnabled: true,
-                        gestureDirection: 'horizontal',
                         ...TransitionPresets.SlideFromRightIOS
                     }}
                 />

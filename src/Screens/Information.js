@@ -13,9 +13,9 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import DatePicker from 'react-native-date-picker'
+import DatePicker1 from 'react-native-date-picker'
 import { Picker } from '@react-native-picker/picker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 
 const Information = ({ navigation, route }) => {
     const [name, setname] = useState('')
@@ -30,6 +30,7 @@ const Information = ({ navigation, route }) => {
     const [cannang, setcannang] = useState('');
     const [mabaohiem, setMabaohiem] = useState()
     const [nhommau, setnhommau] = useState('');
+
     const { mathe, ngaybd } = route.params ? route.params : '';
     useEffect(() => {
         if (mathe, ngaybd) {
@@ -56,21 +57,56 @@ const Information = ({ navigation, route }) => {
             setcannang(text)
         }
     }
-
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.container}>
-                    <View style={styles.header}>
-                    </View>
-                    <View style={styles.footer}>
-                        <KeyboardAwareScrollView
-                            style={styles.content}
-                            extraHeight={120}
-                            enableOnAndroid
-                            showsVerticalScrollIndicator={false}
-                        >
+                    <KeyboardAwareScrollView
+                        style={{ flex: 1 }}
+                        extraHeight={150}
+                        enableOnAndroid
+                        showsVerticalScrollIndicator={false}>
+                        <View style={styles.footer}>
+                            <DatePicker
+                                key="Datebd"
+                                modal
+                                mode='date'
+                                locale='vi'
+                                maximumDate={new Date(Date.now())}
+                                androidVariant='nativeAndroid'
+                                title="Giá trị sử dụng từ ngày"
+                                confirmText="Xác nhận"
+                                cancelText="Huỷ bỏ"
+                                open={pickerbd}
+                                date={datebd}
+                                onConfirm={(date1) => {
+                                    setpickerbd(false)
+                                    setDatebd(date1)
+                                }}
+                                onCancel={() => {
+                                    setpickerbd(false)
+                                }}
+                            />
+                            <DatePicker
+                                key="Dateborn"
+                                modal
+                                mode='date'
+                                locale='vi'
+                                maximumDate={new Date(Date.now())}
+                                androidVariant='nativeAndroid'
+                                title="Ngày tháng năm sinh"
+                                confirmText="Xác nhận"
+                                cancelText="Huỷ bỏ"
+                                open={open}
+                                date={date}
+                                onConfirm={(date) => {
+                                    setOpen(false)
+                                    setDate(date)
+                                }}
+                                onCancel={() => {
+                                    setOpen(false)
+                                }}
+                            />
                             <View style={styles.box}>
                                 <Text style={styles.titlebox}>Thông tin cá nhân</Text>
                                 <View>
@@ -89,25 +125,7 @@ const Information = ({ navigation, route }) => {
                                         >
                                             <Text style={styles.textTimeInput}>{date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()}</Text>
                                         </TouchableOpacity>
-                                        <DatePicker
-                                            modal
-                                            mode='date'
-                                            locale='vi'
-                                            maximumDate={new Date(Date.now())}
-                                            androidVariant='nativeAndroid'
-                                            title="Ngày tháng năm sinh"
-                                            confirmText="Xác nhận"
-                                            cancelText="Huỷ bỏ"
-                                            open={open}
-                                            date={date}
-                                            onConfirm={(date) => {
-                                                setOpen(false)
-                                                setDate(date)
-                                            }}
-                                            onCancel={() => {
-                                                setOpen(false)
-                                            }}
-                                        />
+
                                     </View>
                                     <View style={{ flex: 2, paddingLeft: 20 }}>
                                         <Text style={[styles.texttitle]}>Giới tính (*)</Text>
@@ -158,8 +176,7 @@ const Information = ({ navigation, route }) => {
                                             style={styles.btnQrText}
                                             onPress={() => navigation.navigate('qrscan', {
                                                 option: 'bhyt'
-                                            })}
-                                        >
+                                            })}>
                                             <MaterialIcons
                                                 name="qr-code"
                                                 color="#000"
@@ -172,56 +189,20 @@ const Information = ({ navigation, route }) => {
                                     <View style={{ flex: 2, }}>
                                         <Text style={styles.texttitle}>Giá trị sử dụng từ ngày</Text>
                                         <TouchableOpacity
-                                            onPress={() => setOpen(true)}
-                                        >
-                                            <Text style={styles.textTimeInput}></Text>
-                                        </TouchableOpacity>
-                                        <DatePicker
-                                            modal
-                                            mode='date'
-                                            locale='vi'
-                                            maximumDate={new Date(Date.now())}
-                                            androidVariant='nativeAndroid'
-                                            title="Ngày tháng năm sinh"
-                                            confirmText="Xác nhận"
-                                            cancelText="Huỷ bỏ"
-                                            open={open}
-                                            date={date}
-                                            onConfirm={(date) => {
-                                                setOpen(false)
-                                                setDatebd(date)
-                                            }}
-                                            onCancel={() => {
-                                                setOpen(false)
-                                            }}
-                                        />
-                                    </View>
-                                    <View style={{ flex: 2,paddingLeft:20 }}>
-                                        <Text style={styles.texttitle}>Đến ngày</Text>
-                                        <TouchableOpacity
                                             onPress={() => setpickerbd(true)}
                                         >
+                                            <Text style={styles.textTimeInput}>{datebd.getDate() + '/' + (datebd.getMonth() + 1) + '/' + datebd.getFullYear()}</Text>
+                                        </TouchableOpacity>
+
+                                    </View>
+                                    <View style={{ flex: 2, paddingLeft: 20 }}>
+                                        <Text style={styles.texttitle}>Đến ngày</Text>
+                                        <TouchableOpacity
+                                            onPress={() => { }}
+                                        >
                                             <Text style={styles.textTimeInput}></Text>
                                         </TouchableOpacity>
-                                        <DatePicker
-                                            modal
-                                            mode='date'
-                                            locale='vi'
-                                            maximumDate={new Date(Date.now())}
-                                            androidVariant='nativeAndroid'
-                                            title="Ngày tháng năm sinh"
-                                            confirmText="Xác nhận"
-                                            cancelText="Huỷ bỏ"
-                                            open={pickerbd}
-                                            date={datebd}
-                                            onConfirm={(datebd) => {
-                                                setpickerbd(false)
-                                                setDatebd(datebd)
-                                            }}
-                                            onCancel={() => {
-                                                setpickerbd(false)
-                                            }}
-                                        />
+
                                     </View>
                                 </View>
                                 <View style={styles.box}>
@@ -317,9 +298,8 @@ const Information = ({ navigation, route }) => {
                                     </View>
                                 </View>
                             </View>
-                        </KeyboardAwareScrollView>
-                    </View>
-                </View>
+                        </View>
+                    </KeyboardAwareScrollView>
             </TouchableWithoutFeedback>
         </SafeAreaView>
     );
@@ -333,14 +313,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#00cfcb'
     },
     footer: {
-        flex: Platform.OS === 'ios' ? 3 : 3,
+       // flex: Platform.OS === 'ios' ? 3 : 3,
+        flex:1,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 10,
         paddingVertical: 10,
         marginTop: 5,
-        paddingLeft: 15,
     },
     content: {
         marginTop: 10,
