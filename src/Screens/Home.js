@@ -32,31 +32,35 @@ const Home = ({ navigation }) => {
     }
     return (
         <View style={styles.container}>
-                <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={styles.container}>
-                        <View style={styles.header}>
-                            <View style={styles.userDisplay}>
-                                <View style={{ height: 80, width: 80, borderRadius: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
-                                    <AvatarView size={65} viewPress={() => navigation.navigate('infor')} />
-                                </View>
-                                <View style={{ paddingLeft: 15 }}>
-                                    <Text style={{ fontSize: 20, color: 'white' }}>Xin chào,</Text>
-                                    <Text style={styles.text_header}>{auth().currentUser.displayName}</Text>
+            <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                    <View style={styles.header}>
+                        <View style={styles.userDisplay}>
+                            <View style={{ height: 80, width: 80, borderRadius: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
+                                <AvatarView size={65} viewPress={() => navigation.navigate('infor')} />
+                            </View>
+                            <View style={{ paddingLeft: 15 }}>
+                                <Text style={{ fontSize: 20, color: 'white' }}>Xin chào,</Text>
+                                <Text style={styles.text_header}>{auth().currentUser.displayName}</Text>
+                            </View>
+                        </View>
+                    </View>
+                    <Animatable.View
+                        style={styles.footer}>
+                        <Button title="đăng xuất" onPress={signOut} />
+                        <View style={{ borderWidth: 2, alignItems: 'center' }}>
+                            <View style={{ borderWidth: 2 }}>
+                                <View style={{padding:20}}>
+                                    <QRCode
+                                        value={data}
+                                    />
                                 </View>
                             </View>
                         </View>
-                        <Animatable.View
-                            style={styles.footer}>
-                            <Button title="đăng xuất" onPress={signOut} />
-                            <View>
-                                <QRCode
-                                    value={data}
-                                />
-                            </View>
-                        </Animatable.View>
-                    </View>
-                </TouchableWithoutFeedback>
+                    </Animatable.View>
+                </View>
+            </TouchableWithoutFeedback>
         </View>
     );
 };

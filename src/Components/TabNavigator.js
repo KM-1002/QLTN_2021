@@ -6,6 +6,19 @@ import Information from "../Screens/Information"
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Icon1 from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
+import Personal from '../Screens/Personal';
+import {
+    View,
+    Text,
+    TouchableOpacity,
+    TextInput,
+    Platform,
+    StyleSheet,
+    StatusBar,
+    TouchableWithoutFeedback,
+    Keyboard,
+    SafeAreaView,
+} from 'react-native';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -19,7 +32,7 @@ const TabNavigator = () => {
                     backgroundColor: '#00cfcb',
                 },
                 headerShadowVisible: false,
-                title: 'Centered',
+                tabBarShowLabel: false,
                 headerTitleAlign: 'center',
                 tabBarActiveTintColor: 'red',
                 tabBarInactiveTintColor: 'black',
@@ -29,14 +42,11 @@ const TabNavigator = () => {
                 tabBarStyle: {
                     borderTopWidth: 0.2,
                     borderColor: '#C0C0C0',
-                    shadowColor: 'grey',
-                    shadowOffset: { width: 2, height: 2 },
-                    shadowRadius: 10,
-                    shadowOpacity: 1
+                    elevation: 8,
                 },
-                tabBarLabelStyle: { fontSize: 10 },
-                tabBarItemStyle: { paddingTop: 15, alignItems: 'center', },
-                tabBarContentContainerStyle: { height: 60, },
+                tabBarIconStyle: { width: 100, justifyContent: 'center'},
+                tabBarContentContainerStyle: { height: 45 },
+              //  tabBarItemStyle: { borderWidth: 2 },
             }}
             tabBarPosition='bottom'
         >
@@ -45,9 +55,11 @@ const TabNavigator = () => {
                 component={Home}
                 options={{
                     headerShown: false,
-                    tabBarLabel: 'Trang chủ',
                     tabBarIcon: ({ color }) => (
-                        <Icon name="home" size={20} color={color} />
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Icon name="home" size={20} color={color} />
+                            <Text style={{ fontSize: 10, color: color, paddingTop: 2 }}>TRANG CHỦ</Text>
+                        </View>
                     ),
                 }}
             />
@@ -56,9 +68,11 @@ const TabNavigator = () => {
                 component={News}
                 options={{
                     headerShown: false,
-                    tabBarLabel: 'Tin tức',
                     tabBarIcon: ({ color }) => (
-                        <Icon2 name="newspaper-o" size={20} color={color} />
+                        <View style={{ alignItems: 'center', justifyContent: 'center'}}>
+                            <Icon2 name="newspaper-o" size={20} color={color} />
+                            <Text style={{ fontSize: 10, color: color, paddingTop: 2 }}>TIN TỨC</Text>
+                        </View>
                     ),
                 }}
             />
@@ -67,20 +81,24 @@ const TabNavigator = () => {
                 component={News}
                 options={{
                     headerShown: false,
-                    tabBarLabel: 'Thông báo',
                     tabBarIcon: ({ color }) => (
-                        <Icon1 name="notifications-outline" size={20} color={color} />
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Icon1 name="notifications-outline" size={20} color={color} />
+                            <Text style={{ fontSize: 10, color: color, paddingTop: 2 }}>THÔNG BÁO</Text>
+                        </View>
                     ),
                 }}
             />
             <Tab.Screen
                 name="canhan"
-                component={News}
+                component={Personal}
                 options={{
                     headerShown: false,
-                    tabBarLabel: 'Cá nhân',
                     tabBarIcon: ({ color }) => (
-                        <Icon1 name="person-outline" size={20} color={color} />
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                            <Icon1 name="person-outline" size={20} color={color} />
+                            <Text style={{ fontSize: 10, color: color, paddingTop: 2 }}>CÁ NHÂN</Text>
+                        </View>
                     ),
                 }}
             />
