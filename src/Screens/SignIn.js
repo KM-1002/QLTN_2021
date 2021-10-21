@@ -43,6 +43,7 @@ const SignIn = ({ navigation }) => {
                 })
                 .catch((error) => {
                     var errorCode = error.code;
+                    setLoading(false)
                     if (errorCode == "auth/user-disabled") {
                         Alert.alert('Opps!', 'Tài khoản của bạn đã bị khoá');
                     }

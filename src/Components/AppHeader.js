@@ -8,11 +8,11 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 const IconSize = 30;
 
-const AppHeader = ({ style, avatar, title, right, onRightPress, optionalBtn, optionalBtnPress, rightComponent, headerBg, iconColor, titleAlight, optionalBadge }) => {
+const AppHeader = ({ itemText, middleItemStyle, styleContainer, avatar, title, right, onRightPress, optionalBtn, optionalBtnPress, rightComponent, headerBg, iconColor, titleAlight, optionalBadge, headerItemStyle, itemMiddle, middleItemView }) => {
 
     const LeftView = () => (
         <View style={styles.view}>
-            {avatar && <View style={{ height: 60, width: 60, borderRadius: 30, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
+            {avatar && <View style={{ height: 55, width: 55, borderRadius: 55/2, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
                 <AvatarView size={45} />
             </View>}
         </View>
@@ -35,10 +35,18 @@ const AppHeader = ({ style, avatar, title, right, onRightPress, optionalBtn, opt
         </View>
     )
     return (
-        <Surface style={[styles.header, style, { backgroundColor: headerBg }]}>
-            <LeftView />
-            <TitleView />
-            <RightView />
+        <Surface style={[styles.header, styleContainer, { backgroundColor: headerBg }]}>
+            <View style={[styles.header, headerItemStyle, { backgroundColor: headerBg }]}>
+                <LeftView />
+                <TitleView />
+                <RightView />
+            </View>
+            {itemMiddle &&
+                <View style={middleItemStyle}>
+                    {middleItemView}
+                    {itemText}
+                </View>
+            }
         </Surface>
     )
 }

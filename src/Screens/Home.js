@@ -8,8 +8,7 @@ import {
     TouchableWithoutFeedback,
     Keyboard,
     Button,
-    Image,
-    ScrollView
+    TouchableOpacity
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import auth from '@react-native-firebase/auth';
@@ -30,6 +29,7 @@ const Home = ({ navigation }) => {
     const ScanQR = () => {
         navigation.navigate('qrscan')
     }
+   
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
@@ -37,8 +37,8 @@ const Home = ({ navigation }) => {
                 <View style={styles.container}>
                     <View style={styles.header}>
                         <View style={styles.userDisplay}>
-                            <View style={{ height: 80, width: 80, borderRadius: 40, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
-                                <AvatarView size={65} viewPress={() => navigation.navigate('infor')} />
+                            <View style={{ height: 60, width: 60, borderRadius: 30, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
+                                <AvatarView size={50} viewPress={() => navigation.navigate('infor')} />
                             </View>
                             <View style={{ paddingLeft: 15 }}>
                                 <Text style={{ fontSize: 20, color: 'white' }}>Xin chào,</Text>
@@ -51,7 +51,7 @@ const Home = ({ navigation }) => {
                         <Button title="đăng xuất" onPress={signOut} />
                         <View style={{ borderWidth: 2, alignItems: 'center' }}>
                             <View style={{ borderWidth: 2 }}>
-                                <View style={{padding:20}}>
+                                <View style={{ padding: 20 }}>
                                     <QRCode
                                         value={data}
                                     />

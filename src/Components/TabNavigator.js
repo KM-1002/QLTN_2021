@@ -22,6 +22,14 @@ import {
 
 const Tab = createMaterialTopTabNavigator();
 
+const CustomButtonTab = () => (
+    <TouchableOpacity
+        style={{ width: 70, height: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 35, position: 'absolute', top: -45, backgroundColor: 'black' }}
+    >
+        <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: 'red' }}>
+        </View>
+    </TouchableOpacity>
+)
 const TabNavigator = () => {
     return (
         <Tab.Navigator
@@ -39,14 +47,11 @@ const TabNavigator = () => {
                 tabBarIndicatorStyle: {
                     width: 0, height: 0, elevation: 0,
                 },
-                tabBarStyle: {
-                    borderTopWidth: 0.2,
-                    borderColor: '#C0C0C0',
-                    elevation: 8,
+                tabBarIconStyle: { width: 60, justifyContent: 'center', top: 20 },
+                tabBarContentContainerStyle: {
+                    height: 80,
+                    justifyContent: 'space-between'
                 },
-                tabBarIconStyle: { width: 100, justifyContent: 'center'},
-                tabBarContentContainerStyle: { height: 45 },
-              //  tabBarItemStyle: { borderWidth: 2 },
             }}
             tabBarPosition='bottom'
         >
@@ -69,11 +74,23 @@ const TabNavigator = () => {
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color }) => (
-                        <View style={{ alignItems: 'center', justifyContent: 'center'}}>
+                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                             <Icon2 name="newspaper-o" size={20} color={color} />
                             <Text style={{ fontSize: 10, color: color, paddingTop: 2 }}>TIN TỨC</Text>
                         </View>
                     ),
+                }}
+            />
+            <Tab.Screen
+                name="test"
+                component={News}
+                options={{
+                    headerShown: false,
+                    tabBarIcon: ({ color }) => (
+                        <CustomButtonTab />
+                    ),
+                    tabBarIconStyle: { width: 60, justifyContent: 'center', alignItems: 'center', top: 18 },
+                    
                 }}
             />
             <Tab.Screen
