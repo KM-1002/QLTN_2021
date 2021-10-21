@@ -71,7 +71,7 @@ const SignIn = ({ navigation }) => {
                     <View style={styles.header}>
                         <Animatable.Image
                             animation="fadeInDown"
-                            source={require('../Images/logo.png')}
+                            source={require('../res/Images/logo.png')}
                             style={styles.logo}
                             resizeMode="stretch"
                         />

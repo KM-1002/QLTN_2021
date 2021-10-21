@@ -20,7 +20,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { addUser } from '../Components/FormSub';
+import { addUser } from '../Components/FirebaseFunction';
 
 function VerifyScreen(props) {
     return (<View style={styles.contentVerify}>
@@ -136,7 +136,7 @@ const SingUp = ({ navigation, route }) => {
                     <View style={styles.header}>
                         <Animatable.Image
                             animation="fadeInDown"
-                            source={require('../Images/logo.png')}
+                            source={require('../res/Images/logo.png')}
                             style={styles.logo}
                             resizeMode="stretch"
                         />

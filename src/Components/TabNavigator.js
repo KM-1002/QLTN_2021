@@ -89,8 +89,7 @@ const TabNavigator = () => {
                     tabBarIcon: ({ color }) => (
                         <CustomButtonTab />
                     ),
-                    tabBarIconStyle: { width: 60, justifyContent: 'center', alignItems: 'center', top: 18 },
-                    
+                    tabBarIconStyle: { width: 60, justifyContent: 'center', alignItems: 'center', top: 18 },                    
                 }}
             />
             <Tab.Screen

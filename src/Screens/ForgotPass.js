@@ -41,7 +41,7 @@ const ForgotPass = ({ navigation }) => {
                 <View style={styles.container}>
                     <View style={styles.header}>
                         <Image
-                            source={require('../Images/logo.png')}
+                            source={require('../res/Images/logo.png')}
                             style={styles.logo}
                             resizeMode="stretch" />
                     </View>
