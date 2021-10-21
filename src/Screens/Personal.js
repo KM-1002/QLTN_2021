@@ -43,7 +43,7 @@ const TextItem = () => {
 const Personal = ({ navigation, props }) => {
     return (
         <SafeAreaView style={styles.container} >
-            <ScrollView style={styles.container}>
+            <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1 }}>
                     <AppHeader
                         title={"Cá nhân"}
