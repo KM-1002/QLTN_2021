@@ -1,8 +1,7 @@
 import React from 'react';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from "../Screens/Home";
 import News from "../Screens/News";
-import Information from "../Screens/Information"
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Icon1 from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
@@ -11,22 +10,23 @@ import {
     View,
     Text,
     TouchableOpacity,
-    TextInput,
-    Platform,
-    StyleSheet,
-    StatusBar,
-    TouchableWithoutFeedback,
-    Keyboard,
-    SafeAreaView,
+    Image,
 } from 'react-native';
 
-const Tab = createMaterialTopTabNavigator();
+const Tab = createBottomTabNavigator();
 
-const CustomButtonTab = () => (
+const CustomButtonTab = ({ children, onPress }) => (
     <TouchableOpacity
-        style={{ width: 70, height: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 35, position: 'absolute', top: -45, backgroundColor: 'black' }}
+        style={{
+            top: -30, justifyContent: 'center', alignItems: 'center', width: 75,
+            height: 75,
+            borderRadius: 75 / 2,
+            backgroundColor: 'white'
+        }}
+        onPress={onPress}
     >
-        <View style={{ width: 60, height: 60, borderRadius: 30, backgroundColor: 'red' }}>
+        <View>
+            {children}
         </View>
     </TouchableOpacity>
 )
@@ -47,11 +47,7 @@ const TabNavigator = () => {
                 tabBarIndicatorStyle: {
                     width: 0, height: 0, elevation: 0,
                 },
-                tabBarIconStyle: { width: 60, justifyContent: 'center', top: 20 },
-                tabBarContentContainerStyle: {
-                    height: 80,
-                    justifyContent: 'space-between'
-                },
+
             }}
             tabBarPosition='bottom'
         >
@@ -86,10 +82,19 @@ const TabNavigator = () => {
                 component={News}
                 options={{
                     headerShown: false,
-                    tabBarIcon: ({ color }) => (
-                        <CustomButtonTab />
+                    tabBarIcon: ({ color, focused }) => (
+                        <Image
+                            source={require('../res/Images/quetQr.png')}
+                            resizeMode='contain'
+                            style={{
+                                width: 70,
+                                height: 70,
+                            }}
+                        />
                     ),
-                    tabBarIconStyle: { width: 60, justifyContent: 'center', alignItems: 'center', top: 18 },                    
+                    tabBarButton: (props) => (
+                        <CustomButtonTab {...props} />
+                    )
                 }}
             />
             <Tab.Screen

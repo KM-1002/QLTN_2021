@@ -75,7 +75,7 @@ const Personal = ({ navigation }) => {
                             />
                             <ListItem
                                 icon1={<Ionicons name={'location-sharp'} color={'grey'} size={30} />}
-                                icon2={'keyboard-arrow-right'} size2={30} text={'Nơi đã đén'} separatorLine
+                                icon2={'keyboard-arrow-right'} size2={30} text={'Nơi đã đến'} separatorLine
                             />
                             <ListItem
                                 icon1={<MaterialCommunityIcons name={'calendar-edit'} color={'grey'} size={30} />}

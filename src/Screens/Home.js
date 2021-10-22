@@ -70,9 +70,9 @@ export default Home;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#00cfcb'
     },
     header: {
+        backgroundColor: '#00cfcb',
         flex: 1 / 1.5,
         paddingHorizontal: 15,
         paddingBottom: 5,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     footer: {
         flex: Platform.OS === 'ios' ? 3 : 3,
-        backgroundColor: '#fff',
+       // backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 10,
