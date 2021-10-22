@@ -12,7 +12,7 @@ import AppHeader from '../Components/AppHeader';
 import auth from '@react-native-firebase/auth';
 import QRCode from 'react-native-qrcode-svg';
 import ListItem from '../Components/ListViewItem';
-import { listPersonal } from '../res/data/ListData';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 
 const QrcodeView = ({ navigation }) => {
@@ -61,13 +61,9 @@ const Personal = ({ navigation, props }) => {
                     />
                     <View style={styles.body}>
                         <View style={{ paddingTop: 25, paddingLeft: 15 }}>
-                            <FlatList
-                                data={listPersonal}
-                                keyExtractor={(item, index) => index.toString()}
-                                renderItem={({ item }) =>
-                                    <ListItem icon1={item.icon1} icon2={item.icon2} size1={item.size1} size2={item.size2} text={item.text} separatorLine />
-                                }
-                                scrollEnabled={false}
+                            <ListItem
+                                icon1={<Ionicons name={'md-person'} color={'grey'} size={28} />}
+                                icon2={'keyboard-arrow-right'} size1={28} size2={30} text={'Thông tin cá nhân'} separatorLine
                             />
                         </View>
                     </View>
