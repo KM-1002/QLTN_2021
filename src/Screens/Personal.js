@@ -6,13 +6,15 @@ import {
     SafeAreaView,
     ScrollView,
     Dimensions,
-    FlatList
 } from 'react-native';
 import AppHeader from '../Components/AppHeader';
 import auth from '@react-native-firebase/auth';
 import QRCode from 'react-native-qrcode-svg';
 import ListItem from '../Components/ListViewItem';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Entypo from 'react-native-vector-icons/Entypo';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 
 const QrcodeView = ({ navigation }) => {
@@ -40,7 +42,7 @@ const TextItem = () => {
         </View>
     )
 }
-const Personal = ({ navigation, props }) => {
+const Personal = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container} >
             <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
@@ -63,13 +65,44 @@ const Personal = ({ navigation, props }) => {
                         <View style={{ paddingTop: 25, paddingLeft: 15 }}>
                             <ListItem
                                 icon1={<Ionicons name={'md-person'} color={'grey'} size={28} />}
-                                icon2={'keyboard-arrow-right'} size1={28} size2={30} text={'Thông tin cá nhân'} separatorLine
+                                icon2={'keyboard-arrow-right'} size2={30} text={'Thông tin cá nhân'}
+                                separatorLine
+                                onPress={() => navigation.navigate('infor')}
+                            />
+                            <ListItem
+                                icon1={<MaterialCommunityIcons name={'account-group'} color={'grey'} size={30} />}
+                                icon2={'keyboard-arrow-right'} size2={30} text={'Cộng đồng'} separatorLine
+                            />
+                            <ListItem
+                                icon1={<Ionicons name={'location-sharp'} color={'grey'} size={30} />}
+                                icon2={'keyboard-arrow-right'} size2={30} text={'Nơi đã đén'} separatorLine
+                            />
+                            <ListItem
+                                icon1={<MaterialCommunityIcons name={'calendar-edit'} color={'grey'} size={30} />}
+                                icon2={'keyboard-arrow-right'} size1={28} size2={30} text={'Lịch sử đăng ký'} separatorLine
+                            />
+                            <ListItem
+                                icon1={<Ionicons name={'calendar'} color={'grey'} size={30} />}
+                                icon2={'keyboard-arrow-right'} size1={28} size2={30} text={'Lịch hẹn'} separatorLine
+                            />
+                            <ListItem
+                                icon1={<Entypo name={'info-with-circle'} color={'grey'} size={30} />}
+                                icon2={'keyboard-arrow-right'} size1={28} size2={30} text={'Giới thiệu'} separatorLine
+                            />
+                            <ListItem
+                                icon1={<Ionicons name={'md-settings'} color={'grey'} size={32} />}
+                                icon2={'keyboard-arrow-right'} size1={28} size2={30} text={'Cài đặt'} separatorLine
+                            />
+                            <ListItem
+                                icon1={<MaterialIcons name={'logout'}
+                                    color={'grey'} size={30} />}
+                                size1={28} text={'Đăng xuất'} separatorLine
+                                onPress={() => auth().signOut()}
                             />
                         </View>
                     </View>
                 </View>
             </ScrollView>
-
         </SafeAreaView>
     )
 }
