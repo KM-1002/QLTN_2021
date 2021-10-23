@@ -13,18 +13,21 @@ import {
 } from 'react-native';
 import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scroll-view';
 import DatePicker from 'react-native-date-picker'
-import DatePicker1 from 'react-native-date-picker'
 import { Picker } from '@react-native-picker/picker';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import LinearGradient from 'react-native-linear-gradient';
+
 
 const Information = ({ navigation, route }) => {
     const [name, setname] = useState('')
     const [sex, setSex] = useState('')
     const [date, setDate] = useState(new Date())
     const [datebd, setDatebd] = useState(new Date())
+    const [datekt, setDatekt] = useState(new Date())
     const [sdt, setsdt] = useState('')
     const [open, setOpen] = useState(false)
     const [pickerbd, setpickerbd] = useState(false)
+    const [pickerkt, setpickerkt] = useState(false)
     const [cmnd, setcmnd] = useState('')
     const [chieucao, setchieucao] = useState('');
     const [cannang, setcannang] = useState('');
@@ -61,189 +64,235 @@ const Information = ({ navigation, route }) => {
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor='#00cfcb' barStyle="light-content" />
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <KeyboardAwareScrollView
-                        style={{ flex: 1 }}
-                        extraHeight={150}
-                        enableOnAndroid
-                        showsVerticalScrollIndicator={false}>
-                        <View style={styles.footer}>
-                            <DatePicker
-                                key="Datebd"
-                                modal
-                                mode='date'
-                                locale='vi'
-                                maximumDate={new Date(Date.now())}
-                                androidVariant='nativeAndroid'
-                                title="Giá trị sử dụng từ ngày"
-                                confirmText="Xác nhận"
-                                cancelText="Huỷ bỏ"
-                                open={pickerbd}
-                                date={datebd}
-                                onConfirm={(date1) => {
-                                    setpickerbd(false)
-                                    setDatebd(date1)
-                                }}
-                                onCancel={() => {
-                                    setpickerbd(false)
-                                }}
-                            />
-                            <DatePicker
-                                key="Dateborn"
-                                modal
-                                mode='date'
-                                locale='vi'
-                                maximumDate={new Date(Date.now())}
-                                androidVariant='nativeAndroid'
-                                title="Ngày tháng năm sinh"
-                                confirmText="Xác nhận"
-                                cancelText="Huỷ bỏ"
-                                open={open}
-                                date={date}
-                                onConfirm={(date) => {
-                                    setOpen(false)
-                                    setDate(date)
-                                }}
-                                onCancel={() => {
-                                    setOpen(false)
-                                }}
-                            />
+                <KeyboardAwareScrollView
+                    style={{ flex: 1 }}
+                    showsVerticalScrollIndicator={false}>
+                    <View style={styles.footer}>
+                        <DatePicker
+                            key="Dateborn"
+                            modal
+                            mode='date'
+                            locale='vi'
+                            maximumDate={new Date(Date.now())}
+                            androidVariant='nativeAndroid'
+                            title="Ngày tháng năm sinh"
+                            confirmText="Xác nhận"
+                            cancelText="Huỷ bỏ"
+                            open={open}
+                            date={date}
+                            onConfirm={(date) => {
+                                setOpen(false)
+                                setDate(date)
+                            }}
+                            onCancel={() => {
+                                setOpen(false)
+                            }}
+                        />
+                        <DatePicker
+                            key="Datebd"
+                            modal
+                            mode='date'
+                            locale='vi'
+                            androidVariant='nativeAndroid'
+                            title="Giá trị sử dụng từ ngày"
+                            confirmText="Xác nhận"
+                            cancelText="Huỷ bỏ"
+                            open={pickerbd}
+                            date={datebd}
+                            onConfirm={(datebd) => {
+                                setpickerbd(false)
+                                setDatebd(datebd)
+                            }}
+                            onCancel={() => {
+                                setpickerbd(false)
+                            }}
+                        />
+                        <DatePicker
+                            key="Datekt"
+                            modal
+                            mode='date'
+                            locale='vi'
+                            androidVariant='nativeAndroid'
+                            title="Đến ngày"
+                            confirmText="Xác nhận"
+                            cancelText="Huỷ bỏ"
+                            open={pickerkt}
+                            date={datekt}
+                            onConfirm={(datekt) => {
+                                setpickerkt(false)
+                                setDatekt(datekt)
+                            }}
+                            onCancel={() => {
+                                setpickerkt(false)
+                            }}
+                        />
+
+                        <View style={styles.box}>
+                            <Text style={styles.titlebox}>Thông tin cá nhân</Text>
+                            <View>
+                                <Text style={styles.texttitle}>Họ và tên (*)</Text>
+                                <TextInput
+                                    style={styles.textInput}
+                                    placeholder={'Họ và tên...'}
+                                    onChangeText={(input) => setname(input)}
+                                />
+                            </View>
+                            <View style={{ flexDirection: 'row', }}>
+                                <View style={{ flex: 3, }}>
+                                    <Text style={styles.texttitle}>Ngày tháng năm sinh (*)</Text>
+                                    <TouchableOpacity
+                                        onPress={() => setOpen(true)}
+                                    >
+                                        <Text style={styles.textTimeInput}>{date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()}</Text>
+                                    </TouchableOpacity>
+
+                                </View>
+                                <View style={{ flex: 2, paddingLeft: 20 }}>
+                                    <Text style={[styles.texttitle]}>Giới tính (*)</Text>
+                                    <View
+                                        style={{
+                                            marginTop: '5.75%',
+                                            borderWidth: 1,
+                                            justifyContent: 'center',
+                                            borderRadius: 5,
+                                            height: 50
+                                        }}
+                                    >
+                                        <Picker
+                                            mode={'dropdown'}
+                                            selectedValue={sex}
+                                            onValueChange={(itemValue, itemIndex) => setSex(itemValue)}
+                                        >
+                                            <Picker.Item style={{ fontSize: 17 }} label="Nam" value="Nam" />
+                                            <Picker.Item style={{ fontSize: 17, borderBottomWidth: 1 }} label="Nữ" value="Nữ" />
+                                            <Picker.Item style={{ fontSize: 17, borderBottomWidth: 1 }} label="Khác" value="Khác" />
+                                        </Picker>
+                                    </View>
+                                </View>
+                            </View>
+                            <View>
+                                <Text style={[styles.texttitle, { marginTop: 13 }]}>Số điện thoại (*)</Text>
+                                <TextInput
+                                    style={styles.textInput}
+                                    placeholder={'Số điện thoại...'}
+                                    keyboardType={'phone-pad'}
+                                    onChangeText={(input) => setsdt(input)}
+                                    maxLength={10}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.texttitle}>Sổ hộ chiếu/CMND/CCCD (*)</Text>
+                                <TextInput
+                                    style={styles.textInput}
+                                    onChangeText={(input) => setcmnd(input)}
+                                    maxLength={12}
+                                />
+                            </View>
+                            <View>
+                                <Text style={styles.texttitle} >Mã bảo hiểm y tế</Text>
+                                <View style={styles.boxmbhyt}>
+                                    <TextInput style={styles.textMbhInput} onChangeText={(input) => { setMabaohiem(input) }}>{mabaohiem ? mabaohiem : ''}</TextInput>
+                                    <TouchableOpacity
+                                        style={styles.btnQrText}
+                                        onPress={() => navigation.navigate('qrscan', {
+                                            option: 'bhyt'
+                                        })}>
+                                        <MaterialIcons
+                                            name="qr-code"
+                                            color="#000"
+                                            size={30}
+                                        />
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={{ flexDirection: 'row', marginTop: '2%' }}>
+                                <View style={{ flex: 2, }}>
+                                    <Text style={styles.texttitle}>Giá trị sử dụng từ ngày</Text>
+                                    <TouchableOpacity
+                                        onPress={() => setpickerbd(true)}
+                                    >
+                                        <Text style={styles.textTimeInput}>{datebd.getDate() + '/' + (datebd.getMonth() + 1) + '/' + datebd.getFullYear()}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{ flex: 2, paddingLeft: 20 }}>
+                                    <Text style={styles.texttitle}>Đến ngày</Text>
+                                    <TouchableOpacity
+                                        onPress={() => setpickerkt(true)}
+                                    >
+                                        <Text style={styles.textTimeInput}>{datekt.getDate() + '/' + (datekt.getMonth() + 1) + '/' + datekt.getFullYear()}</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                            <View style={{ marginTop: '1%' }}>
+                                <Text style={styles.texttitle}>Thời điểm đủ 5 năm liên tục</Text>
+                                <TouchableOpacity
+                                    onPress={() => setOpen(true)}
+                                >
+                                    <Text style={styles.textTimeInput}>{date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()}</Text>
+                                </TouchableOpacity>
+                            </View>
                             <View style={styles.box}>
-                                <Text style={styles.titlebox}>Thông tin cá nhân</Text>
+                                <Text style={[styles.titlebox, { marginTop: '10%' }]}>Sức khoẻ</Text>
                                 <View>
-                                    <Text style={styles.texttitle}>Họ và tên (*)</Text>
-                                    <TextInput
-                                        style={styles.textInput}
-                                        placeholder={'Họ và tên...'}
-                                        onChangeText={(input) => setname(input)}
-                                    />
-                                </View>
-                                <View style={{ flexDirection: 'row', }}>
-                                    <View style={{ flex: 3, }}>
-                                        <Text style={styles.texttitle}>Ngày tháng năm sinh (*)</Text>
-                                        <TouchableOpacity
-                                            onPress={() => setOpen(true)}
-                                        >
-                                            <Text style={styles.textTimeInput}>{date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()}</Text>
-                                        </TouchableOpacity>
-
-                                    </View>
-                                    <View style={{ flex: 2, paddingLeft: 20 }}>
-                                        <Text style={[styles.texttitle]}>Giới tính (*)</Text>
-                                        <View
-                                            style={{
-                                                marginTop: '5.75%',
-                                                borderWidth: 1,
-                                                justifyContent: 'center',
-                                                borderRadius: 5,
-                                                height: 49.75
-                                            }}
-                                        >
-                                            <Picker
-                                                mode={'dropdown'}
-                                                selectedValue={sex}
-                                                onValueChange={(itemValue, itemIndex) => setSex(itemValue)}
-                                            >
-                                                <Picker.Item style={{ fontSize: 17 }} label="Nam" value="Nam" />
-                                                <Picker.Item style={{ fontSize: 17, borderBottomWidth: 1 }} label="Nữ" value="Nữ" />
-                                                <Picker.Item style={{ fontSize: 17, borderBottomWidth: 1 }} label="Khác" value="Khác" />
-                                            </Picker>
-                                        </View>
-                                    </View>
-                                </View>
-                                <View>
-                                    <Text style={[styles.texttitle, { marginTop: 13 }]}>Số điện thoại (*)</Text>
-                                    <TextInput
-                                        style={styles.textInput}
-                                        placeholder={'Số điện thoại...'}
-                                        keyboardType={'phone-pad'}
-                                        onChangeText={(input) => setsdt(input)}
-                                        maxLength={10}
-                                    />
-                                </View>
-                                <View>
-                                    <Text style={styles.texttitle}>Sổ hộ chiếu/CMND/CCCD (*)</Text>
-                                    <TextInput
-                                        style={styles.textInput}
-                                        onChangeText={(input) => setcmnd(input)}
-                                        maxLength={12}
-                                    />
-                                </View>
-                                <View>
-                                    <Text style={styles.texttitle} >Mã bảo hiểm y tế</Text>
-                                    <View style={styles.boxmbhyt}>
-                                        <TextInput style={styles.textMbhInput} onChangeText={(input) => { setMabaohiem(input) }}>{mabaohiem ? mabaohiem : ''}</TextInput>
-                                        <TouchableOpacity
-                                            style={styles.btnQrText}
-                                            onPress={() => navigation.navigate('qrscan', {
-                                                option: 'bhyt'
-                                            })}>
-                                            <MaterialIcons
-                                                name="qr-code"
-                                                color="#000"
-                                                size={30}
+                                    <Text style={[styles.texttitle, { paddingBottom: '4%', }]}>Chỉ số sức khoẻ BMI</Text>
+                                    <View style={{ flexDirection: 'row', }}>
+                                        <View style={styles.boxBMI}>
+                                            <TextInput
+                                                style={{ paddingLeft: 10, fontSize: 16 }}
+                                                keyboardType='number-pad'
+                                                placeholder={'Chiều cao cm'}
+                                                maxLength={4}
+                                                onChangeText={onChangeTextCC}
                                             />
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                                <View style={{ flexDirection: 'row', }}>
-                                    <View style={{ flex: 2, }}>
-                                        <Text style={styles.texttitle}>Giá trị sử dụng từ ngày</Text>
-                                        <TouchableOpacity
-                                            onPress={() => setpickerbd(true)}
-                                        >
-                                            <Text style={styles.textTimeInput}>{datebd.getDate() + '/' + (datebd.getMonth() + 1) + '/' + datebd.getFullYear()}</Text>
-                                        </TouchableOpacity>
-
-                                    </View>
-                                    <View style={{ flex: 2, paddingLeft: 20 }}>
-                                        <Text style={styles.texttitle}>Đến ngày</Text>
-                                        <TouchableOpacity
-                                            onPress={() => { }}
-                                        >
-                                            <Text style={styles.textTimeInput}></Text>
-                                        </TouchableOpacity>
-
-                                    </View>
-                                </View>
-                                <View style={styles.box}>
-                                    <Text style={[styles.titlebox, { marginTop: '5%' }]}>Sức khoẻ</Text>
-                                    <View>
-                                        <Text style={[styles.texttitle, { paddingBottom: '2%', }]}>Chỉ số sức khoẻ BMI</Text>
-                                        <View style={{ flexDirection: 'row', }}>
-                                            <View style={styles.boxBMI}>
-                                                <TextInput
-                                                    style={{ paddingLeft: 10, fontSize: 16 }}
-                                                    keyboardType='number-pad'
-                                                    placeholder={'Chiều cao cm'}
-                                                    maxLength={4}
-                                                    onChangeText={onChangeTextCC}
-                                                />
-                                            </View>
-                                            <View style={[styles.boxBMI, { marginHorizontal: '4%' }]}>
-                                                <TextInput
-                                                    style={{ paddingLeft: 10, fontSize: 16 }}
-                                                    keyboardType='number-pad'
-                                                    placeholder={'Cân nặng kg'}
-                                                    maxLength={5}
-                                                    onChangeText={onChangeTextCN}
-                                                />
-                                            </View>
-                                            <View style={[styles.boxBMI, { flex: 1.25 }]}>
-                                                {
-                                                    BMI() ?
-                                                        <View style={{ flex: 1, justifyContent: 'center', paddingLeft: 10 }}>
-                                                            <Text style={{ fontSize: 16 }}>{BMI()}</Text>
-                                                        </View>
-                                                        :
-                                                        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                                            <Text style={{ fontSize: 16, color: '#A0A0A0' }}>Chỉ số BMI</Text>
-                                                        </View>
-                                                }
-                                            </View>
+                                        </View>
+                                        <View style={[styles.boxBMI, { marginHorizontal: '4%' }]}>
+                                            <TextInput
+                                                style={{ paddingLeft: 10, fontSize: 16 }}
+                                                keyboardType='number-pad'
+                                                placeholder={'Cân nặng kg'}
+                                                maxLength={5}
+                                                onChangeText={onChangeTextCN}
+                                            />
+                                        </View>
+                                        <View style={[styles.boxBMI, { flex: 1.25 }]}>
+                                            {
+                                                BMI() ?
+                                                    <View style={{ flex: 1, justifyContent: 'center', paddingLeft: 10 }}>
+                                                        <Text style={{ fontSize: 16 }}>{BMI()}</Text>
+                                                    </View>
+                                                    :
+                                                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                                                        <Text style={{ fontSize: 16, color: '#A0A0A0' }}>Chỉ số BMI</Text>
+                                                    </View>
+                                            }
                                         </View>
                                     </View>
+                                </View>
+                                <View>
+                                    <Text style={[styles.texttitle, { paddingBottom: '4%' }]}>Nhóm máu ABO</Text>
+                                    <View
+                                        style={{
+                                            borderWidth: 1,
+                                            borderRadius: 5,
+                                            justifyContent: 'center',
+                                        }}
+                                    >
+                                        <Picker
+                                            style={{ height: 48.125 }}
+                                            itemStyle={{ borderWidth: 1, }}
+                                            mode={'dropdown'}
+                                            selectedValue={nhommau}
+                                            onValueChange={(itemValue, itemIndex) => setnhommau(itemValue)}
+                                        >
+                                            <Picker.Item style={{ fontSize: 17 }} label="Không xác định" value="Không xác định" />
+                                            <Picker.Item style={{ fontSize: 17 }} label="O" value="O" />
+                                            <Picker.Item style={{ fontSize: 17 }} label="AB" value="AB" />
+                                            <Picker.Item style={{ fontSize: 17 }} label="A" value="A" />
+                                            <Picker.Item style={{ fontSize: 17 }} label="B" value="B" />
+                                        </Picker>
+                                    </View>
                                     <View>
-                                        <Text style={[styles.texttitle, { paddingBottom: '2%' }]}>Nhóm máu ABO</Text>
+                                        <Text style={[styles.texttitle, { paddingBottom: '2%', }]}>Nhóm máu Rh</Text>
                                         <View
                                             style={{
                                                 borderWidth: 1,
@@ -253,53 +302,51 @@ const Information = ({ navigation, route }) => {
                                         >
                                             <Picker
                                                 style={{ height: 48.125 }}
-                                                itemStyle={{ borderWidth: 1, }}
+                                                itemStyle={{ backgroundColor: "grey" }}
                                                 mode={'dropdown'}
                                                 selectedValue={nhommau}
                                                 onValueChange={(itemValue, itemIndex) => setnhommau(itemValue)}
                                             >
                                                 <Picker.Item style={{ fontSize: 17 }} label="Không xác định" value="Không xác định" />
-                                                <Picker.Item style={{ fontSize: 17 }} label="O" value="O" />
-                                                <Picker.Item style={{ fontSize: 17 }} label="AB" value="AB" />
-                                                <Picker.Item style={{ fontSize: 17 }} label="A" value="A" />
-                                                <Picker.Item style={{ fontSize: 17 }} label="B" value="B" />
+                                                <Picker.Item style={{ fontSize: 17 }} label="Rh+" value="Rh+" />
+                                                <Picker.Item style={{ fontSize: 17 }} label="Rh-" value="Rh-" />
                                             </Picker>
                                         </View>
-                                        <View>
-                                            <Text style={[styles.texttitle, { paddingBottom: '2%', }]}>Nhóm máu Rh</Text>
-                                            <View
-                                                style={{
-                                                    borderWidth: 1,
-                                                    borderRadius: 5,
-                                                    justifyContent: 'center',
-                                                }}
-                                            >
-                                                <Picker
-                                                    style={{ height: 48.125 }}
-                                                    itemStyle={{ backgroundColor: "grey" }}
-                                                    mode={'dropdown'}
-                                                    selectedValue={nhommau}
-                                                    onValueChange={(itemValue, itemIndex) => setnhommau(itemValue)}
-                                                >
-                                                    <Picker.Item style={{ fontSize: 17 }} label="Không xác định" value="Không xác định" />
-                                                    <Picker.Item style={{ fontSize: 17 }} label="Rh+" value="Rh+" />
-                                                    <Picker.Item style={{ fontSize: 17 }} label="Rh-" value="Rh-" />
-                                                </Picker>
-                                            </View>
-                                        </View>
-                                        <View>
-                                            <Text style={styles.texttitle}>Tiền sử bệnh</Text>
-                                            <TextInput
-                                                style={[styles.textInput, { textAlignVertical: 'top' }]}
-                                                placeholder={"Tiền sử bệnh"}
-                                                numberOfLines={5}
-                                            />
-                                        </View>
+                                    </View>
+                                    <View>
+                                        <Text style={styles.texttitle}>Tiền sử bệnh</Text>
+                                        <TextInput
+                                            style={[styles.textInput, { textAlignVertical: 'top' }]}
+                                            placeholder={"Tiền sử bệnh"}
+                                            numberOfLines={5}
+                                            multiline={true}
+                                        />
                                     </View>
                                 </View>
                             </View>
                         </View>
-                    </KeyboardAwareScrollView>
+                        <View style={{ marginTop: '8%' }}>
+                            <TouchableOpacity
+                                onPress={console.log("ok")}>
+                                <LinearGradient
+                                    colors={['#08d4c4', '#00ffb7']}
+                                    style={{
+                                        marginHorizontal: '20%',
+                                        marginVertical: '2%',
+                                        borderRadius: 30
+                                    }}>
+                                    <Text style={{
+                                        paddingVertical: '5%',
+                                        fontSize: 19,
+                                        textAlign: "center",
+                                        color: '#fff'
+                                    }}
+                                    >Lưu thông tin</Text>
+                                </LinearGradient>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </KeyboardAwareScrollView>
             </TouchableWithoutFeedback>
         </SafeAreaView>
     );
@@ -313,14 +360,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#00cfcb'
     },
     footer: {
-       // flex: Platform.OS === 'ios' ? 3 : 3,
-        flex:1,
+        flex: Platform.OS === 'ios' ? 1 : 1,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         paddingHorizontal: 10,
         paddingVertical: 10,
-        marginTop: 5,
+        marginTop: 10,
+        paddingLeft: 15,
     },
     content: {
         marginTop: 10,
@@ -340,18 +387,18 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         borderBottomWidth: 1,
         paddingBottom: '2%',
-        fontSize: 16,
+        fontSize: 18,
     },
     texttitle: {
         marginTop: '2%',
-        fontSize: 15,
+        fontSize: 17,
     },
     textInput: {
-        marginVertical: 5,
+        marginVertical: 10,
         paddingHorizontal: 15,
         borderWidth: 1,
         borderRadius: 5,
-        fontSize: 17,
+        fontSize: 16,
     },
     textTimeInput: {
         height: 50,

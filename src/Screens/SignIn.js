@@ -27,7 +27,7 @@ const SignIn = ({ navigation }) => {
     const [password, setPassword] = useState('')
     const [check_textInputChange, setcheck_textInputChange] = useState(false)
     const [loading, setLoading] = useState(false)
-    
+
     const updateSecureTextEntry = () => {
         setcheck_textInputChange({
             secureTextEntry: !check_textInputChange.secureTextEntry
@@ -137,7 +137,7 @@ const SignIn = ({ navigation }) => {
                                         }
                                     </TouchableOpacity>
                                 </View>
-                                <TouchableOpacity onPress={() => navigation.push('forgotpass')}>
+                                <TouchableOpacity onPress={() => navigation.navigate('settingsAccount', { option: '1' })}>
                                     <Text style={{ color: '#009387', marginTop: 15, paddingLeft: 20 }}>Quên mật khẩu?</Text>
                                 </TouchableOpacity>
                                 <View style={styles.button}>

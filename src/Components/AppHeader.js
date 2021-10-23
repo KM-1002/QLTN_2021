@@ -8,12 +8,12 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 
 const IconSize = 30;
 
-const AppHeader = ({ itemText, middleItemStyle, styleContainer, avatar, title, right, onRightPress, optionalBtn, optionalBtnPress, rightComponent, headerBg, iconColor, titleAlight, optionalBadge, headerItemStyle, itemMiddle, middleItemView }) => {
+const AppHeader = ({ itemText, middleItemStyle, styleContainer, avatar, title, right, onRightPress, optionalBtn, optionalBtnPress, rightComponent, headerBg, iconColor, titleAlight, optionalBadge, headerItemStyle, itemMiddle, middleItemView, avatarPress }) => {
 
     const LeftView = () => (
         <View style={styles.view}>
-            {avatar && <View style={{ height: 55, width: 55, borderRadius: 55/2, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
-                <AvatarView size={45} />
+            {avatar && <View style={{ height: 55, width: 55, borderRadius: 55 / 2, justifyContent: 'center', alignItems: 'center', backgroundColor: '#E8E8E8' }}>
+                <AvatarView size={45} viewPress={avatarPress} />
             </View>}
         </View>
     )

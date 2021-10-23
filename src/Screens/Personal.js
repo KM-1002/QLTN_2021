@@ -60,6 +60,7 @@ const Personal = ({ navigation }) => {
                         middleItemStyle={styles.middleStyle}
                         middleItemView={<QrcodeView />}
                         itemText={<TextItem />}
+                        avatarPress={() => navigation.navigate('infor')}
                     />
                     <View style={styles.body}>
                         <View style={{ paddingTop: 25, paddingLeft: 15 }}>
@@ -91,7 +92,9 @@ const Personal = ({ navigation }) => {
                             />
                             <ListItem
                                 icon1={<Ionicons name={'md-settings'} color={'grey'} size={32} />}
-                                icon2={'keyboard-arrow-right'} size1={28} size2={30} text={'Cài đặt'} separatorLine
+                                icon2={'keyboard-arrow-right'} size1={28} size2={30} text={'Cài đặt'}
+                                separatorLine
+                                onPress={() => navigation.navigate('settings')}
                             />
                             <ListItem
                                 icon1={<MaterialIcons name={'logout'}
@@ -142,6 +145,6 @@ const styles = StyleSheet.create({
         /// flex: 1 - 1 / 2.3,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        // height: 400,
+        height: 600,
     }
 })

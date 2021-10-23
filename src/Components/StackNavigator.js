@@ -3,12 +3,13 @@ import { createStackNavigator, TransitionPresets } from '@react-navigation/stack
 import Splash from '../Screens/Splash';
 import SignIn from '../Screens/SignIn';
 import SignUp from '../Screens/SignUp';
-import ForgotPass from '../Screens/ForgotPass';
+import settingsAccount from '../Screens/SettingsAccount';
 import TabNavigator from './TabNavigator';
 import qrScanner from '../Screens/qrScanner';
 import Information from "../Screens/Information"
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
+import Settings from '../Screens/Settings';
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,8 @@ const StackNavigator = () => {
                     },
                     headerShadowVisible: false,
                     gestureDirection: 'horizontal',
+                    gestureEnabled: true,
+                    ...TransitionPresets.SlideFromRightIOS
                 }}
             >
                 <Stack.Screen
@@ -49,8 +52,8 @@ const StackNavigator = () => {
                     }}
                 />
                 <Stack.Screen
-                    name="forgotpass"
-                    component={ForgotPass}
+                    name="settingsAccount"
+                    component={settingsAccount}
                     options={{
                         title: 'Đặt lại mật khẩu',
                     }}
@@ -74,8 +77,19 @@ const StackNavigator = () => {
                     component={Information}
                     options={{
                         title: 'Cập nhật thông tin',
-                        gestureEnabled: true,
-                        ...TransitionPresets.SlideFromRightIOS
+
+                    }}
+                />
+                <Stack.Screen
+                    name="settings"
+                    component={Settings}
+                    options={{
+                        headerTitle: "Cài đặt",
+                        headerStyle: {
+                            height: 80,
+                            backgroundColor: '#00cfcb',
+                        },
+                        headerTitleAlign:'center'
                     }}
                 />
             </Stack.Navigator>

@@ -18,9 +18,53 @@ import { KeyboardAwareScrollView } from '@codler/react-native-keyboard-aware-scr
 import LinearGradient from 'react-native-linear-gradient';
 import auth from '@react-native-firebase/auth';
 
-const ForgotPass = ({ navigation }) => {
-    const [email, setemail] = useState('')
 
+function ForgotPassword(props) {
+    return (<View style={{paddingTop:'10%'}}>
+        <Text style={styles.textTitle}>Quên mật khẩu?</Text>
+        <Text style={styles.textSub}>Nhập tài khoản email đã đăng ký </Text>
+        <View style={styles.Box}>
+            <Feather name="mail" color="#FF4162" size={20} />
+            <TextInput style={styles.textInput} placeholder="Nhập địa chỉ email" onChangeText={input => props.setemail(input)} autoCapitalize="none">
+            </TextInput>
+        </View>
+        <TouchableOpacity onPress={props.resetPassword}>
+            <LinearGradient style={styles.Button} colors={['#2eff85', '#01ab9d', '#42e3d4']}>
+                <Text style={{
+                    fontSize: 16,
+                    color: '#fff',
+                    fontWeight: 'bold'
+                }}>Đặt lại mật khẩu</Text>
+            </LinearGradient>
+        </TouchableOpacity>
+    </View>);
+}
+function ChangePassword(props) {
+    return (<View>
+        <Text>Đổi mật khẩu</Text>
+    </View>);
+}
+
+
+const SettingsAccount = ({ navigation, route }) => {
+    const [email, setemail] = useState('')
+    const [typeSetting, settypeSetting] = useState('')
+    const { option } = route.params;
+
+    useEffect(() => {
+        if (option) {
+            switch (option) {
+                case '1':
+                    settypeSetting('1');
+                    console.log(typeSetting)
+                    break;
+                case '2':
+                    settypeSetting('2');
+                    break;
+                default: settypeSetting('1')
+            }
+        }
+    }, [option, typeSetting])
     const resetPassword = async () => {
         if (email) {
             try {
@@ -52,29 +96,12 @@ const ForgotPass = ({ navigation }) => {
                                 enableOnAndroid
                                 showsVerticalScrollIndicator={false}
                             >
-                                <Text style={styles.textTitle}>Quên mật khẩu?</Text>
-                                <Text style={styles.textSub}>Nhập tài khoản email đã đăng ký </Text>
-                                <View style={styles.Box}>
-                                    <Feather
-                                        name="mail"
-                                        color="#FF4162"
-                                        size={20}
-                                    />
-                                    <TextInput
-                                        style={styles.textInput}
-                                        placeholder="Nhập địa chỉ email"
-                                        onChangeText={(input) => setemail(input)}
-                                        autoCapitalize="none">
-                                    </TextInput>
-                                </View>
-                                <TouchableOpacity onPress={resetPassword}>
-                                    <LinearGradient
-                                        style={styles.Button}
-                                        colors={['#2eff85', '#01ab9d', '#42e3d4']}
-                                    >
-                                        <Text style={{ fontSize: 16, color: '#fff', fontWeight: 'bold' }}>Đặt lại mật khẩu</Text>
-                                    </LinearGradient>
-                                </TouchableOpacity>
+                                {
+                                    (typeSetting == '1') ?
+                                        <ForgotPassword setemail={setemail} resetPassword={resetPassword} />
+                                        :
+                                        <ChangePassword />
+                                }
                             </KeyboardAwareScrollView>
                         </View>
                     </View>
@@ -84,7 +111,7 @@ const ForgotPass = ({ navigation }) => {
     );
 };
 
-export default ForgotPass;
+export default SettingsAccount;
 
 const { height } = Dimensions.get("screen");
 const height_logo = height * 0.15;
@@ -125,7 +152,7 @@ const styles = StyleSheet.create({
         color: '#585858',
     },
     content: {
-        paddingTop: '20%'
+        paddingTop: '10%'
     },
     Box: {
         flexDirection: 'row',

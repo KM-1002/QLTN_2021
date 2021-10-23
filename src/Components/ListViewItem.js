@@ -1,8 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import Ionicons from 'react-native-vector-icons/Ionicons';
-
 
 const ListItem = ({ icon1, icon2, size2, text, separatorLine, onPress }) => {
     return (

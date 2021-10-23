@@ -21,7 +21,9 @@ const CustomButtonTab = ({ children, onPress }) => (
             top: -30, justifyContent: 'center', alignItems: 'center', width: 75,
             height: 75,
             borderRadius: 75 / 2,
-            backgroundColor: 'white'
+            backgroundColor: 'white',
+            borderWidth:0.2,
+            borderColor:'#BEBEBE'
         }}
         onPress={onPress}
     >
@@ -49,7 +51,6 @@ const TabNavigator = () => {
                 },
 
             }}
-            tabBarPosition='bottom'
         >
             <Tab.Screen
                 name="home"
